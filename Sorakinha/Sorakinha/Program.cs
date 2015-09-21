@@ -60,7 +60,6 @@ namespace Sorakinha
             {
                 Brain.AutoR();
             }
-            var autoW = MenuX.Healing["useW"].Cast<CheckBox>().CurrentValue;
             switch (Orbwalker.ActiveModesFlags)
             {
                 case Orbwalker.ActiveModes.Combo:
