@@ -20,6 +20,15 @@ namespace Sorakinha
 
         public static void Combo()
         {
+            var autoW = MenuX.Healing["useW"].Cast<CheckBox>().CurrentValue;
+            if (autoW && Program.W.IsReady())
+            {
+                AutoW();
+            }
+            if (Program.R.IsReady())
+            {
+                AutoR();
+            }
             var useQ = MenuX.Combo["useQCombo"].Cast<CheckBox>().CurrentValue;
             var useE = MenuX.Combo["useECombo"].Cast<CheckBox>().CurrentValue;
             var minMana = MenuX.Combo["minMcombo"].Cast<Slider>().CurrentValue;
@@ -40,6 +49,15 @@ namespace Sorakinha
         #region Harass
         public static void Harass()
         {
+            var autoW = MenuX.Healing["useW"].Cast<CheckBox>().CurrentValue;
+            if (autoW && Program.W.IsReady())
+            {
+                AutoW();
+            }
+            if (Program.R.IsReady())
+            {
+                AutoR();
+            }
             var useQ = MenuX.Harass["useQHarass"].Cast<CheckBox>().CurrentValue;
             var useE = MenuX.Harass["useEHarass"].Cast<CheckBox>().CurrentValue;
             var minMana = MenuX.Harass["minMharass"].Cast<Slider>().CurrentValue;
