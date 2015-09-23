@@ -106,7 +106,7 @@ namespace SimpleSivir
                 {
                     R.Cast();
                 }
-                else if (target.IsValidTarget() && _Player.GetAutoAttackRange(target)*2 > target.Health && !Q.IsReady() &&
+                else if (target.IsValidTarget() && _Player.GetAutoAttackDamage(target)*2 > target.Health && !Q.IsReady() &&
                          target.CountEnemiesInRange(800) < 3)
                     R.Cast();
             }
