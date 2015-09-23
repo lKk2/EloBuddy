@@ -1,0 +1,11 @@
+c:\users\kk2\documents\visual studio 2015\Projects\SimpleSivir\SimpleSivir\bin\Debug\SimpleSivir.exe.config
+C:\Users\Kk2\documents\visual studio 2015\Projects\SimpleSivir\SimpleSivir\bin\Debug\SimpleSivir.exe
+C:\Users\Kk2\documents\visual studio 2015\Projects\SimpleSivir\SimpleSivir\bin\Debug\SimpleSivir.pdb
+C:\Users\Kk2\documents\visual studio 2015\Projects\SimpleSivir\SimpleSivir\bin\Debug\EloBuddy.dll
+C:\Users\Kk2\documents\visual studio 2015\Projects\SimpleSivir\SimpleSivir\bin\Debug\EloBuddy.SDK.dll
+C:\Users\Kk2\documents\visual studio 2015\Projects\SimpleSivir\SimpleSivir\bin\Debug\SharpDX.Direct3D9.dll
+C:\Users\Kk2\documents\visual studio 2015\Projects\SimpleSivir\SimpleSivir\bin\Debug\SharpDX.dll
+C:\Users\Kk2\documents\visual studio 2015\Projects\SimpleSivir\SimpleSivir\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Kk2\documents\visual studio 2015\Projects\SimpleSivir\SimpleSivir\obj\Debug\SimpleSivir.csprojResolveAssemblyReference.cache
+C:\Users\Kk2\documents\visual studio 2015\Projects\SimpleSivir\SimpleSivir\obj\Debug\SimpleSivir.exe
+C:\Users\Kk2\documents\visual studio 2015\Projects\SimpleSivir\SimpleSivir\obj\Debug\SimpleSivir.pdb
