@@ -5,7 +5,7 @@ namespace SimpleSivir
 {
     internal class MenuX
     {
-        public static Menu Sivir, ComboMenu, HarassMenu, ShieldMenu, MiscMenu;
+        public static Menu Sivir, ComboMenu, HarassMenu, ShieldMenu, KsMenu, MiscMenu;
 
         public static void CallMeNiga()
         {
@@ -33,6 +33,12 @@ namespace SimpleSivir
             ShieldMenu.AddSeparator();
             ShieldMenu.Add("autoE", new CheckBox("Auto E"));
             ShieldMenu.Add("AntiGap", new CheckBox("Anti GapCloser E"));
+
+            KsMenu = Sivir.AddSubMenu("KillSteal", "ks");
+            KsMenu.AddGroupLabel("KillSteal Options");
+            KsMenu.AddSeparator();
+            KsMenu.Add("useQks", new CheckBox("Use Q on KS"));
+            KsMenu.Add("useWks", new CheckBox("Use W on KS"));
 
             MiscMenu = Sivir.AddSubMenu("Misc", "Misc");
             MiscMenu.AddGroupLabel("Misc Options");

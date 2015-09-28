@@ -76,7 +76,7 @@ namespace SimpleSivir
                         HeroManager.Enemies.Where(
                             x => x.IsValidTarget(Q.Range) && !x.HasBuffOfType(BuffType.Invulnerability)))
                 {
-                    if (Q.GetPrediction(target).HitChance >= HitChance.Immobile)
+                    if (Q.GetPrediction(target).HitChance >= HitChance.Immobile || Q.GetPrediction(target).HitChance >= HitChance.Dashing)
                         Q.Cast(target);
                 }
             }
@@ -93,7 +93,7 @@ namespace SimpleSivir
             if (MenuX.ComboMenu["useQc"].Cast<CheckBox>().CurrentValue &&
                 Q.IsReady())
             {
-                Q.Cast(target);
+               Q.Cast(target);
             }
             if (MenuX.ComboMenu["useWc"].Cast<CheckBox>().CurrentValue &&
                 W.IsReady())
@@ -125,6 +125,7 @@ namespace SimpleSivir
                 MenuX.HarassMenu["mppc"].Cast<Slider>().CurrentValue <= _Player.ManaPercent)
             {
                 Q.Cast(target);
+                
             }
             if (MenuX.HarassMenu["useWh"].Cast<CheckBox>().CurrentValue &&
                 W.IsReady() &&
@@ -132,6 +133,35 @@ namespace SimpleSivir
             {
                 W.Cast();
             }
+        }
+
+        #endregion
+
+        #region KillSteal
+
+        public static void KillSteal()
+        {
+            if (MenuX.KsMenu["useQks"].Cast<CheckBox>().CurrentValue)
+            {
+                var target = ObjectManager.Get<AIHeroClient>()
+                    .FirstOrDefault(enemy => enemy.IsValidTarget(Q.Range) &&
+                                             enemy.Health < _Player.GetSpellDamage(enemy, SpellSlot.Q));
+                if (target.IsValidTarget(Q.Range))
+                {
+                    Q.Cast(target);
+                }
+            }
+            if (MenuX.KsMenu["useWks"].Cast<CheckBox>().CurrentValue)
+            {
+                var target = ObjectManager.Get<AIHeroClient>()
+                    .FirstOrDefault(enemy => enemy.IsValidTarget(W.Range) &&
+                                             enemy.Health < _Player.GetSpellDamage(enemy, SpellSlot.W));
+                if (target.IsValidTarget(W.Range))
+                {
+                    W.Cast();
+                }
+            }
+
         }
 
         #endregion
@@ -183,14 +213,86 @@ namespace SimpleSivir
         #endregion
 
         #region ProcessSpell/GapCloser
-
-        public static void OnProcessSpellCastX(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
+        
+        public static void AIHeroClient_On_ProcessSpellCast(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
             if (MenuX.ShieldMenu["autoE"].Cast<CheckBox>().CurrentValue && !_Player.IsDead)
             {
-                if (!sender.IsMinion &&
-                    sender.IsEnemy && args.Target.IsMe && !args.SData.IsAutoAttack() && E.IsReady())
-                    E.Cast();
+                string [] Spells = {"AhriSeduce"
+                                          , "InfernalGuardian"
+                                          , "EnchantedCrystalArrow"
+                                          , "InfernalGuardian"
+                                          , "EnchantedCrystalArrow"
+                                          , "RocketGrab"
+                                          , "BraumQ"
+                                          , "CassiopeiaPetrifyingGaze"
+                                          , "DariusAxeGrabCone"
+                                          , "DravenDoubleShot"
+                                          , "DravenRCast"
+                                          , "EzrealTrueshotBarrage"
+                                          , "FizzMarinerDoom"
+                                          , "GnarBigW"
+                                          , "GnarR"
+                                          , "GragasR"
+                                          , "GravesChargeShot"
+                                          , "GravesClusterShot"
+                                          , "JarvanIVDemacianStandard"
+                                          , "JinxW"
+                                          , "JinxR"
+                                          , "KarmaQ"
+                                          , "KogMawLivingArtillery"
+                                          , "LeblancSlide"
+                                          , "LeblancSoulShackle"
+                                          , "LeonaSolarFlare"
+                                          , "LuxLightBinding"
+                                          , "LuxLightStrikeKugel"
+                                          , "LuxMaliceCannon"
+                                          , "UFSlash"
+                                          , "DarkBindingMissile"
+                                          , "NamiQ"
+                                          , "NamiR"
+                                          , "OrianaDetonateCommand"
+                                          , "RengarE"
+                                          , "rivenizunablade"
+                                          , "RumbleCarpetBombM"
+                                          , "SejuaniGlacialPrisonStart"
+                                          , "SionR"
+                                          , "ShenShadowDash"
+                                          , "SonaR"
+                                          , "ThreshQ"
+                                          , "ThreshEFlay"
+                                          , "VarusQMissilee"
+                                          , "VarusR"
+                                          , "VeigarBalefulStrike"
+                                          , "VelkozQ"
+                                          , "Vi-q"
+                                          , "Laser"
+                                          , "xeratharcanopulse2"
+                                          , "XerathArcaneBarrage2"
+                                          , "XerathMageSpear"
+                                          , "xerathrmissilewrapper"
+                                          , "yasuoq3w"
+                                          , "ZacQ"
+                                          , "ZedShuriken"
+                                          , "ZiggsQ"
+                                          , "ZiggsW"
+                                          , "ZiggsE"
+                                          , "ZiggsR"
+                                          , "ZileanQ"
+                                          , "ZyraQFissure"
+                                          , "ZyraGraspingRoots"
+                                      };
+                for (int i = 0; i <= 61; i++)
+                {
+                    if (args.SData.Name == Spells[i])
+                    {
+                        if (sender is AIHeroClient && sender.IsEnemy && args.Target.IsMe && !args.SData.IsAutoAttack() &&
+                            E.IsReady())
+                        {
+                            E.Cast();
+                        }
+                    }
+                }
             }
         }
 

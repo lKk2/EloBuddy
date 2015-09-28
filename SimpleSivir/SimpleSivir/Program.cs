@@ -17,12 +17,12 @@ namespace SimpleSivir
         {
             if (ObjectManager.Player.ChampionName.ToLower() != "sivir") return;
             Bootstrap.Init(null);
-            Brain.runSpells();
             MenuX.CallMeNiga();
+            Brain.runSpells();
             Game.OnTick += Brain.Game_OnTick;
             Drawing.OnEndScene += Brain.Drawing_OnDraw;
             Gapcloser.OnGapcloser += Brain.AntiGapCloser_OnEnemyGapcloser;
-            Obj_AI_Base.OnProcessSpellCast += Brain.OnProcessSpellCastX;
+            Obj_AI_Base.OnProcessSpellCast += Brain.AIHeroClient_On_ProcessSpellCast;
             Chat.Print("SimpleSivir Loaded <3", Color.Purple);
         }
     }
