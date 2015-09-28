@@ -9,3 +9,8 @@ C:\Users\Kk2\documents\visual studio 2015\Projects\SimpleSivir\SimpleSivir\bin\D
 C:\Users\Kk2\documents\visual studio 2015\Projects\SimpleSivir\SimpleSivir\obj\Debug\SimpleSivir.csprojResolveAssemblyReference.cache
 C:\Users\Kk2\documents\visual studio 2015\Projects\SimpleSivir\SimpleSivir\obj\Debug\SimpleSivir.exe
 C:\Users\Kk2\documents\visual studio 2015\Projects\SimpleSivir\SimpleSivir\obj\Debug\SimpleSivir.pdb
+C:\Users\Kk2\Documents\Visual Studio 2015\Projects\SimpleSivir\SimpleSivir\bin\Debug\SimpleSivir.exe.manifest
+C:\Users\Kk2\Documents\Visual Studio 2015\Projects\SimpleSivir\SimpleSivir\bin\Debug\SimpleSivir.application
+C:\Users\Kk2\Documents\Visual Studio 2015\Projects\SimpleSivir\SimpleSivir\obj\Debug\SimpleSivir.TrustInfo.xml
+C:\Users\Kk2\Documents\Visual Studio 2015\Projects\SimpleSivir\SimpleSivir\obj\Debug\SimpleSivir.exe.manifest
+C:\Users\Kk2\Documents\Visual Studio 2015\Projects\SimpleSivir\SimpleSivir\obj\Debug\SimpleSivir.application
