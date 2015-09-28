@@ -10,3 +10,10 @@ c:\users\kk2\documents\SimpleSivir\SimpleSivir\bin\Debug\Newtonsoft.Json.dll
 c:\users\kk2\documents\SimpleSivir\SimpleSivir\obj\Debug\SimpleSivir.csprojResolveAssemblyReference.cache
 c:\users\kk2\documents\SimpleSivir\SimpleSivir\obj\Debug\SimpleSivir.exe
 c:\users\kk2\documents\SimpleSivir\SimpleSivir\obj\Debug\SimpleSivir.pdb
+C:\Users\Kk2\documents\visual studio 2015\Projects\SimpleSivir\SimpleSivir\bin\Debug\SimpleSivir.exe.config
+C:\Users\Kk2\documents\visual studio 2015\Projects\SimpleSivir\SimpleSivir\obj\Debug\SimpleSivir.exe
+C:\Users\Kk2\documents\visual studio 2015\Projects\SimpleSivir\SimpleSivir\obj\Debug\SimpleSivir.pdb
+C:\Users\Kk2\documents\visual studio 2015\Projects\SimpleSivir\SimpleSivir\bin\Debug\SimpleSivir.exe
+C:\Users\Kk2\documents\visual studio 2015\Projects\SimpleSivir\SimpleSivir\bin\Debug\SimpleSivir.pdb
+C:\Users\Kk2\documents\visual studio 2015\Projects\SimpleSivir\SimpleSivir\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Kk2\documents\visual studio 2015\Projects\SimpleSivir\SimpleSivir\obj\Debug\SimpleSivir.csprojResolveAssemblyReference.cache
