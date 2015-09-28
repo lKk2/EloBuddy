@@ -25,7 +25,7 @@ namespace SimpleSivir
 
         public static void runSpells()
         {
-            Q = new Spell.Skillshot(SpellSlot.Q, 1245, SkillShotType.Linear, (int) 0.25f, 1030, 90);
+            Q = new Spell.Skillshot(SpellSlot.Q, 1245, SkillShotType.Linear, (int)0.25f, 1030, 90);
             W = new Spell.Active(SpellSlot.W);
             E = new Spell.Active(SpellSlot.E);
             R = new Spell.Active(SpellSlot.R, 1000);
@@ -57,7 +57,7 @@ namespace SimpleSivir
                 {
                     if (_Player.CountEnemiesInRange(700) > 0 && _Player.Health + 200 < _Player.MaxHealth)
                         Potion.Cast();
-                    else if (_Player.Health < _Player.MaxHealth*0.6)
+                    else if (_Player.Health < _Player.MaxHealth * 0.6)
                         Potion.Cast();
                 }
             }
@@ -93,7 +93,7 @@ namespace SimpleSivir
             if (MenuX.ComboMenu["useQc"].Cast<CheckBox>().CurrentValue &&
                 Q.IsReady())
             {
-               Q.Cast(target);
+                Q.Cast(target);
             }
             if (MenuX.ComboMenu["useWc"].Cast<CheckBox>().CurrentValue &&
                 W.IsReady())
@@ -106,7 +106,7 @@ namespace SimpleSivir
                 {
                     R.Cast();
                 }
-                else if (target.IsValidTarget() && _Player.GetAutoAttackDamage(target)*2 > target.Health && !Q.IsReady() &&
+                else if (target.IsValidTarget() && _Player.GetAutoAttackDamage(target) * 2 > target.Health && !Q.IsReady() &&
                          target.CountEnemiesInRange(800) < 3)
                     R.Cast();
             }
@@ -125,7 +125,7 @@ namespace SimpleSivir
                 MenuX.HarassMenu["mppc"].Cast<Slider>().CurrentValue <= _Player.ManaPercent)
             {
                 Q.Cast(target);
-                
+
             }
             if (MenuX.HarassMenu["useWh"].Cast<CheckBox>().CurrentValue &&
                 W.IsReady() &&
@@ -213,12 +213,12 @@ namespace SimpleSivir
         #endregion
 
         #region ProcessSpell/GapCloser
-        
+
         public static void AIHeroClient_On_ProcessSpellCast(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
             if (MenuX.ShieldMenu["autoE"].Cast<CheckBox>().CurrentValue && !_Player.IsDead)
             {
-                string [] Spells = {"AhriSeduce"
+                string[] Spells = {"AhriSeduce"
                                           , "InfernalGuardian"
                                           , "EnchantedCrystalArrow"
                                           , "InfernalGuardian"

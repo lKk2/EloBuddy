@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleSivir", "SimpleSivir\SimpleSivir.csproj", "{7BC98A0D-1D67-42AD-96AF-4090B6497719}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleSivir", "SimpleSivir\SimpleSivir.csproj", "{7EF7C4FC-7BB1-4478-A999-CB9ABD58FB7E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7BC98A0D-1D67-42AD-96AF-4090B6497719}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7BC98A0D-1D67-42AD-96AF-4090B6497719}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7BC98A0D-1D67-42AD-96AF-4090B6497719}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7BC98A0D-1D67-42AD-96AF-4090B6497719}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7EF7C4FC-7BB1-4478-A999-CB9ABD58FB7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EF7C4FC-7BB1-4478-A999-CB9ABD58FB7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EF7C4FC-7BB1-4478-A999-CB9ABD58FB7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EF7C4FC-7BB1-4478-A999-CB9ABD58FB7E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
