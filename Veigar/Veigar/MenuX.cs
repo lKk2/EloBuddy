@@ -5,7 +5,7 @@ namespace Veigar
 {
     internal class MenuX
     {
-        public static Menu Veigar, Combo, Harass, KillSteal, LaneClear, Misc, LastHit, Drawing;
+        public static Menu Veigar, Combo, Harass, KillSteal, LaneClear, Misc, LastHit, Drawing, Skin;
 
         public static void CallMenu()
         {
@@ -23,6 +23,7 @@ namespace Veigar
             Combo.Add("useWComboS", new CheckBox("Use W Only on Stunned Targets"));
             Combo.Add("useECombo", new CheckBox("Use E"));
             Combo.Add("useRCombo", new CheckBox("Use R"));
+            Combo.Add("useIGCombo", new CheckBox("Use Ignite to Kill"));
 
             //Harass
             Harass = Veigar.AddSubMenu("Harass", "Harass");
@@ -56,8 +57,7 @@ namespace Veigar
             KillSteal.Add("ksQ", new CheckBox("KS with Q"));
             KillSteal.Add("ksW", new CheckBox("KS with W"));
             KillSteal.Add("ksR", new CheckBox("KS with R"));
-            KillSteal.Add("ksIG", new CheckBox("KS with Ignite"));
-
+            
             //Misc
             Misc = Veigar.AddSubMenu("Misc", "Misc");
             Misc.AddGroupLabel("Misc Options");
@@ -68,12 +68,13 @@ namespace Veigar
 
             //Drawing
             Drawing = Veigar.AddSubMenu("Drawing", "Drawing");
-            Drawing.AddGroupLabel("Drawing Menu");
+            Drawing.AddGroupLabel("Drawing Options");
             Drawing.AddSeparator();
             Drawing.Add("drawQ", new CheckBox("Draw Q"));
             Drawing.Add("drawW", new CheckBox("Draw W"));
             Drawing.Add("drawE", new CheckBox("Draw E"));
             Drawing.Add("writeKillable", new CheckBox("Write Killable Targets with Combo"));
+
         }
     }
 }

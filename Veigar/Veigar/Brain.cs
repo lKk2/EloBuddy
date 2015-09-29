@@ -25,6 +25,8 @@ namespace Veigar
             Chat.Print("Veigar^.^ Loaded", Color.Purple);
             Game.OnTick += Game_OnTick;
             Drawing.OnDraw += OnDraw;
+
+            _Player.SetSkin(_Player.ChampionName, 8);
         }
 
         private static void Game_OnTick(EventArgs args)
@@ -32,7 +34,6 @@ namespace Veigar
             if (isChecked(MenuX.Misc, "autoE")) autoE();
             KillSteal();
             Potions();
-
             switch (Orbwalker.ActiveModesFlags)
             {
                 case Orbwalker.ActiveModes.Combo:
@@ -73,6 +74,11 @@ namespace Veigar
                 {
                     WCast(target);
                 }
+            }
+            if (isChecked(MenuX.Combo, "useIGCombo") && Ignite.IsReady() &&
+                target.Health < _Player.GetSummonerSpellDamage(target, DamageLibrary.SummonerSpells.Ignite))
+            {
+                Ignite.Cast(target);
             }
         }
 
@@ -122,12 +128,6 @@ namespace Veigar
                 {
                     R.Cast(target);
                 }
-                if (target.Health <= _Player.GetSummonerSpellDamage(target, DamageLibrary.SummonerSpells.Ignite) &&
-                    Ignite.IsReady() &&
-                    isChecked(MenuX.KillSteal, "ksIG"))
-                {
-                    Ignite.Cast(target);
-                }
             }
         }
 
@@ -137,6 +137,7 @@ namespace Veigar
 
         private static void LastHit()
         {
+            if (!Q.IsLearned) return;
             if (isChecked(MenuX.LastHit, "farmQ") &&
                 getSliderValue(MenuX.LastHit, "farmSlider") <= _Player.HealthPercent)
             {
@@ -299,7 +300,7 @@ namespace Veigar
             Q = new Spell.Skillshot(SpellSlot.Q, 900, SkillShotType.Linear, (int) 0.25f, 2000, 70);
             Q.AllowedCollisionCount = 0;
             W = new Spell.Skillshot(SpellSlot.W, 900, SkillShotType.Circular, (int) 1.25f, 2000, (int) 225f);
-                // 2k to test
+            // 2k to test
             W.AllowedCollisionCount = int.MaxValue;
             E = new Spell.Skillshot(SpellSlot.E, 700, SkillShotType.Circular, (int) 0.5f, int.MaxValue, 40);
             E.AllowedCollisionCount = int.MaxValue;
