@@ -17,6 +17,7 @@ namespace Veigar
             get { return ObjectManager.Player; }
         }
 
+        private static int SkinNumber = 0;
         public static void Init()
         {
             Bootstrap.Init(null);
@@ -27,6 +28,10 @@ namespace Veigar
             Drawing.OnDraw += OnDraw;
 
             _Player.SetSkin(_Player.ChampionName, 8);
+            MenuX.skinSelect.OnValueChange += delegate(ValueBase<int> sender, ValueBase<int>.ValueChangeArgs args)
+            {
+                _Player.SetSkin(_Player.ChampionName, args.NewValue);
+            };
         }
 
         private static void Game_OnTick(EventArgs args)

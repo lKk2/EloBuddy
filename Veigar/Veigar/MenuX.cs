@@ -1,4 +1,5 @@
-﻿using EloBuddy.SDK.Menu;
+﻿using EloBuddy;
+using EloBuddy.SDK.Menu;
 using EloBuddy.SDK.Menu.Values;
 
 namespace Veigar
@@ -6,6 +7,7 @@ namespace Veigar
     internal class MenuX
     {
         public static Menu Veigar, Combo, Harass, KillSteal, LaneClear, Misc, LastHit, Drawing, Skin;
+        public static Slider skinSelect;
 
         public static void CallMenu()
         {
@@ -65,7 +67,9 @@ namespace Veigar
             Misc.Add("autoE", new CheckBox("Auto E"));
             Misc.Add("useEFlee", new CheckBox("Use E on Flee Mode"));
             Misc.Add("AutoPot", new CheckBox("Use Potions"));
-
+            Misc.AddSeparator();
+            skinSelect = Misc.Add("ChangeSkin", new Slider("Change Skin [Number]", 8, 1, 8));
+            
             //Drawing
             Drawing = Veigar.AddSubMenu("Drawing", "Drawing");
             Drawing.AddGroupLabel("Drawing Options");
