@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using EloBuddy.SDK.Menu;
+﻿using EloBuddy.SDK.Menu;
 using EloBuddy.SDK.Menu.Values;
 
 namespace Veigar
 {
-    class MenuX
+    internal class MenuX
     {
         public static Menu Veigar, Combo, Harass, KillSteal, LaneClear, Misc, LastHit, Drawing;
 
