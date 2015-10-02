@@ -143,15 +143,17 @@ namespace Veigar
         private static void LastHit()
         {
             if (!Q.IsLearned) return;
-            if (MenuX.LastHit["farmQActive"].Cast<KeyBind>().CurrentValue)
+            if (MenuX.LastHit["farmQActive"].Cast<KeyBind>().CurrentValue
+               && !_Player.IsRecalling 
+               && !_Player.IsDead)
             {
-                if (getSliderValue(MenuX.LastHit, "farmSlider") <= _Player.HealthPercent)
+                if (getSliderValue(MenuX.LastHit, "farmSlider") <= _Player.ManaPercent)
                 {
                     foreach (var m in ObjectManager.Get<Obj_AI_Minion>().Where(
                         x => x.IsEnemy && x.Distance(_Player) <= Q.Range
-                        ).OrderByDescending(m => m.MaxHealth))
+                        ).OrderBy(m => m.MaxHealth))
                     {
-                        if (m.IsDead) return;
+                        if (m.IsDead || !m.IsValidTarget(Q.Range)) return;
                         var pred = Q.GetPrediction(m);
                         if (m.Health <= QDamage(m))
                             Q.Cast(pred.CastPosition);
@@ -167,13 +169,13 @@ namespace Veigar
         private static void LaneClear()
         {
             if (Q.IsReady() && isChecked(MenuX.LaneClear, "useQL") &&
-                getSliderValue(MenuX.LaneClear, "minML") <= _Player.HealthPercent)
+                getSliderValue(MenuX.LaneClear, "minML") <= _Player.ManaPercent)
             {
                 foreach (var m in ObjectManager.Get<Obj_AI_Minion>().Where(
                     x => x.IsEnemy && x.Distance(_Player) <= Q.Range
-                    ).OrderByDescending(m => m.MaxHealth))
+                    ).OrderBy(m => m.MaxHealth))
                 {
-                    if (m.IsDead) return;
+                    if (m.IsDead || !m.IsValidTarget(Q.Range)) return;
                     var pred = Q.GetPrediction(m);
                     if (m.Health <= QDamage(m))
                         Q.Cast(pred.CastPosition);
@@ -182,7 +184,7 @@ namespace Veigar
             var minions = EntityManager.GetLaneMinions(EntityManager.UnitTeam.Enemy, _Player.Position.To2D(), Q.Range,
                 true);
             if (minions.Count > 3 && W.IsReady() && isChecked(MenuX.LaneClear, "useWL") &&
-                getSliderValue(MenuX.LaneClear, "minML") <= _Player.HealthPercent)
+                getSliderValue(MenuX.LaneClear, "minML") <= _Player.ManaPercent)
             {
                 foreach (var minion in minions.Where(x => x.IsValidTarget(W.Range + W.Width)))
                 {
