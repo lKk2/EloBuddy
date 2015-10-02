@@ -6,7 +6,7 @@ namespace Veigar
 {
     internal class MenuX
     {
-        public static Menu Veigar, Combo, Harass, KillSteal, LaneClear, Misc, LastHit, Drawing, Skin;
+        public static Menu Veigar, Combo, Harass, KillSteal, LaneClear, Misc, LastHit, Drawing;
         public static Slider skinSelect;
 
         public static void CallMenu()
@@ -41,7 +41,7 @@ namespace Veigar
             LastHit = Veigar.AddSubMenu("LastHit", "LastHit");
             LastHit.AddGroupLabel("LastHit Options");
             LastHit.AddSeparator();
-            LastHit.Add("farmQ", new CheckBox("Farm with Q"));
+            LastHit.Add("farmQActive", new KeyBind("Activate Auto Farm", true, KeyBind.BindTypes.PressToggle, 'N'));
             LastHit.Add("farmSlider", new Slider("Min Mana % to Farm with Q", 40));
 
             //LaneClear

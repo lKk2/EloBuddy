@@ -7,6 +7,8 @@ using EloBuddy.SDK.Enumerations;
 using EloBuddy.SDK.Menu;
 using EloBuddy.SDK.Menu.Values;
 using EloBuddy.SDK.Rendering;
+using SharpDX;
+using Color = System.Drawing.Color;
 
 namespace Veigar
 {
@@ -17,7 +19,6 @@ namespace Veigar
             get { return ObjectManager.Player; }
         }
 
-        private static int SkinNumber = 0;
         public static void Init()
         {
             Bootstrap.Init(null);
@@ -36,8 +37,7 @@ namespace Veigar
 
         private static void Game_OnTick(EventArgs args)
         {
-            if (isChecked(MenuX.Misc, "autoE")) autoE();
-            KillSteal();
+            LastHit();   
             Potions();
             switch (Orbwalker.ActiveModesFlags)
             {
@@ -47,16 +47,16 @@ namespace Veigar
                 case Orbwalker.ActiveModes.Harass:
                     Harass();
                     break;
-                case Orbwalker.ActiveModes.LastHit:
-                    LastHit();
-                    break;
                 case Orbwalker.ActiveModes.Flee:
                     Flee();
                     break;
                 case Orbwalker.ActiveModes.LaneClear:
                     LaneClear();
                     break;
+                    
             }
+            if (isChecked(MenuX.Misc, "autoE")) autoE();
+            KillSteal();
         }
 
         #region Combo
@@ -143,17 +143,19 @@ namespace Veigar
         private static void LastHit()
         {
             if (!Q.IsLearned) return;
-            if (isChecked(MenuX.LastHit, "farmQ") &&
-                getSliderValue(MenuX.LastHit, "farmSlider") <= _Player.HealthPercent)
+            if (MenuX.LastHit["farmQActive"].Cast<KeyBind>().CurrentValue)
             {
-                foreach (var m in ObjectManager.Get<Obj_AI_Minion>().Where(
-                    x => x.IsEnemy && x.Distance(_Player) <= Q.Range
-                    ).OrderBy(m => m.MaxHealth))
+                if (getSliderValue(MenuX.LastHit, "farmSlider") <= _Player.HealthPercent)
                 {
-                    if (m.IsDead) return;
-                    var pred = Q.GetPrediction(m);
-                    if (m.Health <= QDamage(m))
-                        Q.Cast(pred.CastPosition);
+                    foreach (var m in ObjectManager.Get<Obj_AI_Minion>().Where(
+                        x => x.IsEnemy && x.Distance(_Player) <= Q.Range
+                        ).OrderByDescending(m => m.MaxHealth))
+                    {
+                        if (m.IsDead) return;
+                        var pred = Q.GetPrediction(m);
+                        if (m.Health <= QDamage(m))
+                            Q.Cast(pred.CastPosition);
+                    }
                 }
             }
         }
@@ -169,7 +171,7 @@ namespace Veigar
             {
                 foreach (var m in ObjectManager.Get<Obj_AI_Minion>().Where(
                     x => x.IsEnemy && x.Distance(_Player) <= Q.Range
-                    ).OrderBy(m => m.MaxHealth))
+                    ).OrderByDescending(m => m.MaxHealth))
                 {
                     if (m.IsDead) return;
                     var pred = Q.GetPrediction(m);
@@ -269,6 +271,10 @@ namespace Veigar
                     }
                 }
             }
+            if (MenuX.LastHit["farmQActive"].Cast<KeyBind>().CurrentValue)
+            {
+                Drawing.DrawText(_Player.HPBarPosition.X, _Player.HPBarPosition.Y + 50, Color.White, "FarmQ Active");
+            }
         }
 
 
@@ -304,8 +310,8 @@ namespace Veigar
         {
             Q = new Spell.Skillshot(SpellSlot.Q, 900, SkillShotType.Linear, (int) 0.25f, 2000, 70);
             Q.AllowedCollisionCount = 0;
-            W = new Spell.Skillshot(SpellSlot.W, 900, SkillShotType.Circular, (int) 1.25f, 2000, (int) 225f);
-            // 2k to test
+            W = new Spell.Skillshot(SpellSlot.W, 900, SkillShotType.Circular, (int) 1.25f, 2000, 225); 
+            // spellspeed 2k?
             W.AllowedCollisionCount = int.MaxValue;
             E = new Spell.Skillshot(SpellSlot.E, 700, SkillShotType.Circular, (int) 0.5f, int.MaxValue, 40);
             E.AllowedCollisionCount = int.MaxValue;
@@ -345,14 +351,11 @@ namespace Veigar
         private static void WCast(AIHeroClient target)
         {
             if (!target.IsValidTarget(W.Range) || !W.IsReady()) return;
-            if (!_Player.HasBuffOfType(BuffType.Stun) && !_Player.HasBuffOfType(BuffType.Taunt) &&
-                !_Player.HasBuffOfType(BuffType.Snare)) return;
-
+            
             var pred = W.GetPrediction(target);
-            if (pred.HitChance >= HitChance.Medium)
-            {
-                W.Cast(pred.CastPosition);
-            }
+            if (pred.HitChancePercent >= 70)
+            W.Cast(pred.CastPosition);
+
         }
 
         private static void QCast(AIHeroClient target)
