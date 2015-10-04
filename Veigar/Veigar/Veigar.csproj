@@ -60,9 +60,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Brain.cs" />
+    <Compile Include="Casts.cs" />
+    <Compile Include="Drawings.cs" />
+    <Compile Include="Flags.cs" />
+    <Compile Include="DamageLib.cs" />
     <Compile Include="MenuX.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Spells.cs" />
+    <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

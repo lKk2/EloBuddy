@@ -1,4 +1,5 @@
-﻿using EloBuddy;
+﻿using System;
+using EloBuddy;
 using EloBuddy.SDK.Menu;
 using EloBuddy.SDK.Menu.Values;
 
@@ -8,6 +9,7 @@ namespace Veigar
     {
         public static Menu Veigar, Combo, Harass, KillSteal, LaneClear, Misc, LastHit, Drawing;
         public static Slider skinSelect;
+        public static string[] PredictValues = {"Low", "Medium", "High"};
 
         public static void CallMenu()
         {
@@ -26,6 +28,13 @@ namespace Veigar
             Combo.Add("useECombo", new CheckBox("Use E"));
             Combo.Add("useRCombo", new CheckBox("Use R"));
             Combo.Add("useIGCombo", new CheckBox("Use Ignite to Kill"));
+            Combo.AddSeparator();
+            var SliderComboPredict = Combo.Add("SliderCPredict", new Slider("Spell Prediction: ", 1, 0, 2));
+            SliderComboPredict.OnValueChange += delegate
+            {
+                SliderComboPredict.DisplayName = "Spell Prediction: " + PredictValues[SliderComboPredict.CurrentValue];
+            };
+            SliderComboPredict.DisplayName = "Spell Prediction: " + PredictValues[SliderComboPredict.CurrentValue];
 
             //Harass
             Harass = Veigar.AddSubMenu("Harass", "Harass");
@@ -36,6 +45,13 @@ namespace Veigar
             Harass.Add("useWHS", new CheckBox("Use W Only on Stunned Targets"));
             Harass.Add("useEH", new CheckBox("Use E"));
             Harass.Add("minManaH", new Slider("Min Mana % for Harass", 20));
+            Harass.AddSeparator();
+            var sliderHarassPredict = Harass.Add("SliderHPredict", new Slider("Spell Prediction: ", 1, 0, 2));
+            sliderHarassPredict.OnValueChange += delegate
+            {
+                sliderHarassPredict.DisplayName = "Spell Prediction: " + PredictValues[sliderHarassPredict.CurrentValue];
+            };
+            sliderHarassPredict.DisplayName = "Spell Prediction: " + PredictValues[sliderHarassPredict.CurrentValue];
 
             //LastHit
             LastHit = Veigar.AddSubMenu("LastHit", "LastHit");
@@ -64,11 +80,15 @@ namespace Veigar
             Misc = Veigar.AddSubMenu("Misc", "Misc");
             Misc.AddGroupLabel("Misc Options");
             Misc.AddSeparator();
-            Misc.Add("autoE", new CheckBox("Auto E"));
+            Misc.Add("EInterrupt", new CheckBox("Use E To Interrupt!"));
+            Misc.Add("EGap", new CheckBox("Use E on GapCloser"));
+            Misc.Add("EDash", new CheckBox("Use E on Dashing Heroes"));
             Misc.Add("useEFlee", new CheckBox("Use E on Flee Mode"));
             Misc.Add("AutoPot", new CheckBox("Use Potions"));
             Misc.AddSeparator();
-            skinSelect = Misc.Add("ChangeSkin", new Slider("Change Skin [Number]", 8, 1, 8));
+            skinSelect = Misc.Add("ChangeSkin", new Slider("Change Skin [Number]", 8, 0, 8));
+            Misc.AddSeparator();
+            Misc.Add("extension", new Slider("Extension to E Cast", 375, 0, 500));
             
             //Drawing
             Drawing = Veigar.AddSubMenu("Drawing", "Drawing");
