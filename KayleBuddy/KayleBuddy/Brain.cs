@@ -1,104 +1,160 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using EloBuddy;
 using EloBuddy.SDK;
 using EloBuddy.SDK.Menu.Values;
+using EloBuddy.SDK.Rendering;
 
 
 namespace KayleBuddy
 {
     class Brain
     {
-        public static AIHeroClient _Player { get { return ObjectManager.Player; } }
-        public static float GetDynamicRange()
+
+        public static void Loading_OnLoadingComplete(EventArgs args)
         {
-            if (Program.Q.IsReady())
+            if (Utils._Player.BaseSkinName.ToLower() != "kayle") return;
+            Bootstrap.Init(null);
+            Chat.Print("KayleBuddy LOADED", Color.DeepPink);
+            MenuX.getMenu();
+            Spells.GetSpells();
+            Game.OnTick += Game_OnTick;
+            Drawing.OnDraw += OnDraw;
+            MenuX.skinSelect.OnValueChange += delegate(ValueBase<int> sender, ValueBase<int>.ValueChangeArgs a)
             {
-                return Program.Q.Range;
-            }
-            return _Player.GetAutoAttackRange();
+                Utils._Player.SetSkin(Utils._Player.ChampionName, a.NewValue);
+            };
+             Utils._Player.SetSkin(Utils._Player.ChampionName, 7);
         }
 
-        public static void Combo()
+        private static void Game_OnTick(EventArgs args)
         {
-            if (_Player.IsDead) return;
-            var target = TargetSelector.GetTarget(GetDynamicRange() + 100, DamageType.Magical);
-            if (target == null) return;
-
-            if (Program.ComboMenu["useQCombo"].Cast<CheckBox>().CurrentValue && Program.Q.IsReady() && target.IsValidTarget(Program.Q.Range))
+            UltManager();
+            HealingMachine();
+            Potions();
+            switch (Orbwalker.ActiveModesFlags)
             {
-                Program.Q.Cast(target);
+                case Orbwalker.ActiveModes.Combo:
+                    Flags.Combo();
+                    break;
+                case Orbwalker.ActiveModes.Harass:
+                    Flags.Harass();
+                    break;
+                case Orbwalker.ActiveModes.LaneClear:
+                    Flags.WaveClear();
+                    break;
+                case Orbwalker.ActiveModes.JungleClear:
+                    Flags.JungleClear();
+                    break;
+                case Orbwalker.ActiveModes.LastHit:
+                    Flags.LastHit();
+                    break;
             }
-            else if (Program.ComboMenu["useWCombo"].Cast<CheckBox>().CurrentValue && Program.W.IsReady() &&
-                _Player.HealthPercent >= 30 && target.Distance(_Player) <= Program.E.Range)
+        }
+        #region Pot
+        private static void Potions()
+        {
+            if (Utils.isChecked(MenuX.MiscMenu, "usePot") && !Utils._Player.IsInShopRange() && !Utils._Player.HasBuff("recall"))
             {
-                Program.W.Cast(_Player);
-            }
-            else if (Program.ComboMenu["useECombo"].Cast<CheckBox>().CurrentValue && Program.E.IsReady() &&
-                target.Distance(_Player) <= Program.E.Range)
-            {
-                Program.E.Cast();
+                var hpPot = new Item(2003);
+                var manaPot = new Item(2004);
+                var biscuit = new Item(2010);
+                if ((hpPot.IsReady() || biscuit.IsReady()) &&
+                    (!Utils._Player.HasBuff("RegenerationPotion") || Utils._Player.HasBuff("ItemMiniRegenPotion")))
+                {
+                    if (Utils._Player.CountEnemiesInRange(700) > 0 && Utils._Player.Health + 200 < Utils._Player.MaxHealth)
+                    {
+                        if (Item.HasItem(hpPot.Id))
+                        {
+                            hpPot.Cast();
+                        }
+                        else
+                        {
+                            biscuit.Cast();
+                        }
+                    }
+                    else if (Utils._Player.Health < Utils._Player.MaxHealth * 0.6)
+                    {
+                        if (Item.HasItem(hpPot.Id))
+                        {
+                            hpPot.Cast();
+                        }
+                        else
+                        {
+                            biscuit.Cast();
+                        }
+                    }
+                }
+                if (manaPot.IsReady() && !Utils._Player.HasBuff("FlaskOfCrystalWater"))
+                {
+                    if (Utils._Player.Mana < Utils._Player.MaxMana * 0.6)
+                    {
+                        manaPot.Cast();
+                    }
+                }
             }
         }
 
-        public static void Harass()
-        {
-            if (_Player.IsDead) return;
-            var target = TargetSelector.GetTarget(GetDynamicRange() + 100, DamageType.Magical);
-            if (target == null) return;
+        #endregion
 
-            if (Program.HarassMenu["useQHarass"].Cast<CheckBox>().CurrentValue && Program.Q.IsReady() && target.IsValidTarget(Program.Q.Range))
-            {
-                Program.Q.Cast(target);
-            }
-            else if (Program.HarassMenu["useEHarass"].Cast<CheckBox>().CurrentValue && Program.E.IsReady())
-            {
-                Program.E.Cast();
-            }
-        }
-
-        public static void WaveClear()
-        {
-            if (_Player.IsDead) return;
-            var minions =
-                ObjectManager.Get<Obj_AI_Minion>().Where(m => m.IsEnemy && _Player.Distance(m) <= Program.E.Range);
-            if (minions.Any() && Program.FarmMenu["useEWave"].Cast<CheckBox>().CurrentValue && Program.E.IsReady())
-            {
-                Program.E.Cast();
-            }
-        }
-
+        #region Ult/Heal Manager
         public static void UltManager()
         {
-            if (_Player.IsDead || !Program.R.IsReady()) return;
+            if (Utils._Player.IsDead || !Spells.R.IsReady() || Utils._Player.IsRecalling) return;
 
-            if (Program.UltMenu["useRSelf"].Cast<CheckBox>().CurrentValue &&
-                _Player.HealthPercent <= Program.UltMenu["MinHPR"].Cast<Slider>().CurrentValue)
-            {
-                if (Program.W.IsReady()) Program.W.Cast(_Player);
-                Program.R.Cast(_Player);
-            }
+            var getUlt = HeroManager.Allies.Where(
+                h => !h.IsDead && !h.IsRecalling &&
+                     h.Distance(Utils._Player) <= Spells.R.Range &&
+                     !Utils._Player.IsRecalling &&
+                     Utils.isChecked(MenuX.UltMenu, "UseR" + h.ChampionName) &&
+                     h.HealthPercent <= Utils.getSliderValue(MenuX.UltMenu, "minHPR" + h.ChampionName) &&
+                     Utils._Player.CountEnemiesInRange(1200) > 0).ToList();
+            var allytoult = getUlt.OrderBy(x => x.Health).FirstOrDefault(x => !x.IsInShopRange());
+            if (allytoult != null)
+                Spells.R.Cast(allytoult);
         }
 
-        public static void LastHit()
+        private static void HealingMachine()
         {
-            if (_Player.IsDead) return;
-            if (Program.FarmMenu["useQFarm"].Cast<CheckBox>().CurrentValue && Program.Q.IsReady())
+            if (Utils._Player.IsDead || !Spells.W.IsReady() || Utils._Player.IsRecalling) return;
+
+            var test = HeroManager.Allies.Where(
+                hero => !hero.IsDead && !hero.IsInShopRange()
+                        && !hero.IsZombie && !hero.IsRecalling && 
+                        !Utils._Player.IsRecalling &&
+                        hero.Distance(Utils._Player) <= Spells.W.Range &&
+                        Utils.isChecked(MenuX.HealingMenu, "UseW" + hero.ChampionName) &&
+                        hero.HealthPercent <= Utils.getSliderValue(MenuX.HealingMenu, "minHPW" + hero.ChampionName)
+                ).ToList();
+            var allytoheal = test.OrderBy(x => x.Health).FirstOrDefault(x => !x.IsInShopRange());
+            if (allytoheal != null)
             {
-                var minion = ObjectManager.Get<Obj_AI_Minion>().FirstOrDefault(a => a.IsEnemy && a.Health <= QDamage(a));
-                if (minion == null) return;
-                Program.Q.Cast(minion);
+                Spells.W.Cast(allytoheal);
             }
         }
+        #endregion
 
-
-        public static float QDamage(Obj_AI_Base target)
+        private static void OnDraw(EventArgs args)
         {
-            return _Player.CalculateDamageOnUnit(target, DamageType.Magical,
-                (float)(new[] { 60, 110, 160, 210, 260 }[Program.Q.Level] + 0.6 * _Player.FlatMagicDamageMod + _Player.FlatPhysicalDamageMod));
+          if (Utils.isChecked(MenuX.MiscMenu, "drawQ"))
+                new Circle { Color = Color.White, Radius = Spells.Q.Range, BorderWidth = 2f }.Draw(Utils._Player.Position);
+            if (Utils.isChecked(MenuX.MiscMenu, "drawH"))
+            {
+                foreach (var h in HeroManager.Allies)
+                {
+                    var pos = h.HPBarPosition;
+                    if (!h.IsDead && !h.IsMe &&
+                        h.HealthPercent <= Utils.getSliderValue(MenuX.HealingMenu, "minHPW" + h.ChampionName))
+                    {
+                        Drawing.DrawText(pos.X + 110, pos.Y - 5, Color.Tomato, "H");
+                    }
+                }
+            }
         }
     }
 }
