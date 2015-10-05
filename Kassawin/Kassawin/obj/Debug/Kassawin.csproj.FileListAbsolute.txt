@@ -1,0 +1,12 @@
+c:\users\kk2\documents\visual studio 2015\Projects\Kassawin\Kassawin\bin\Debug\Kassawin.exe.config
+c:\users\kk2\documents\visual studio 2015\Projects\Kassawin\Kassawin\bin\Debug\Kassawin.exe
+c:\users\kk2\documents\visual studio 2015\Projects\Kassawin\Kassawin\bin\Debug\Kassawin.pdb
+c:\users\kk2\documents\visual studio 2015\Projects\Kassawin\Kassawin\bin\Debug\EloBuddy.dll
+c:\users\kk2\documents\visual studio 2015\Projects\Kassawin\Kassawin\bin\Debug\EloBuddy.Sandbox.dll
+c:\users\kk2\documents\visual studio 2015\Projects\Kassawin\Kassawin\bin\Debug\EloBuddy.SDK.dll
+c:\users\kk2\documents\visual studio 2015\Projects\Kassawin\Kassawin\bin\Debug\SharpDX.Direct3D9.dll
+c:\users\kk2\documents\visual studio 2015\Projects\Kassawin\Kassawin\bin\Debug\SharpDX.dll
+c:\users\kk2\documents\visual studio 2015\Projects\Kassawin\Kassawin\bin\Debug\Newtonsoft.Json.dll
+c:\users\kk2\documents\visual studio 2015\Projects\Kassawin\Kassawin\obj\Debug\Kassawin.csprojResolveAssemblyReference.cache
+c:\users\kk2\documents\visual studio 2015\Projects\Kassawin\Kassawin\obj\Debug\Kassawin.exe
+c:\users\kk2\documents\visual studio 2015\Projects\Kassawin\Kassawin\obj\Debug\Kassawin.pdb
