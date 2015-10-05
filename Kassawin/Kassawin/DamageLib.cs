@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using EloBuddy;
+﻿using EloBuddy;
 using EloBuddy.SDK;
 
 namespace Kassawin
 {
-    class DamageLib
+    internal class DamageLib
     {
         public static float QDamage(Obj_AI_Base target)
         {
             return Utils._Player.CalculateDamageOnUnit(target, DamageType.Magical,
-                (float) (new[] {0, 80, 105, 130, 155, 180}[Spells.Q.Level] + 0.7 * Utils._Player.FlatMagicDamageMod
+                (float) (new[] {0, 80, 105, 130, 155, 180}[Spells.Q.Level] + 0.7*Utils._Player.FlatMagicDamageMod
                     ));
         }
 

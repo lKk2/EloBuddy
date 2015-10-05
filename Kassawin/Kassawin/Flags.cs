@@ -1,20 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using EloBuddy;
 using EloBuddy.SDK;
 using EloBuddy.SDK.Enumerations;
-using Kassawin;
 
 namespace Kassawin
 {
-    class Flags
+    internal class Flags
     {
         private static int EBuffCount
         {
-            get { return Utils._Player.GetBuffCount("forcepulsecounter"); }       
+            get { return Utils._Player.GetBuffCount("forcepulsecounter"); }
         }
 
         private static float RMana
@@ -28,14 +24,14 @@ namespace Kassawin
             if (target == null) return;
 
             if (target.IsValidTarget(Spells.Q.Range) &&
-               Spells.Q.IsReady() &&
-               Utils.isChecked(MenuX.Combo, "ComboQ"))
+                Spells.Q.IsReady() &&
+                Utils.isChecked(MenuX.Combo, "ComboQ"))
             {
                 Spells.Q.Cast(target);
             }
             if (target.IsValidTarget(Spells.E.Range) &&
                 Spells.E.IsReady() &&
-               Utils.isChecked(MenuX.Combo, "ComboE"))
+                Utils.isChecked(MenuX.Combo, "ComboE"))
             {
                 var pred = Spells.E.GetPrediction(target);
                 if (pred.HitChance >= HitChance.High)
@@ -43,24 +39,22 @@ namespace Kassawin
             }
             if (target.IsValidTarget(Spells.R.Range) &&
                 Spells.R.IsReady() &&
-               Utils.isChecked(MenuX.Combo, "ComboR"))
+                Utils.isChecked(MenuX.Combo, "ComboR"))
             {
                 if (RMana < 400 &&
-                    Utils._Player.CountEnemiesInRange(1400) <= Utils.getSliderValue(MenuX.Combo, "sliderR")) 
+                    Utils._Player.CountEnemiesInRange(1400) <= Utils.getSliderValue(MenuX.Combo, "sliderR"))
                 {
                     Spells.R.Cast(target.ServerPosition);
                 }
-                   else if (EBuffCount >= 3 || DamageLib.RDamage(target) > target.Health || Spells.E.IsReady())
+                else if (EBuffCount >= 3 || DamageLib.RDamage(target) > target.Health || Spells.E.IsReady())
                 {
                     Spells.R.Cast(target.ServerPosition);
                 }
-             }
+            }
             if (Spells.Ignite.IsReady() &&
                 target.Health < Utils._Player.GetSummonerSpellDamage(target, DamageLibrary.SummonerSpells.Ignite) &&
                 Utils.isChecked(MenuX.Combo, "IgniteToKill"))
                 Spells.Ignite.Cast(target);
-
-
         }
 
         public static void Harass()
@@ -95,10 +89,11 @@ namespace Kassawin
                 target is AIHeroClient &&
                 target.Distance(Utils._Player) <= Spells.W.Range)
             {
-                if ((Orbwalker.ActiveModesFlags == Orbwalker.ActiveModes.Harass || Orbwalker.ActiveModesFlags == Orbwalker.ActiveModes.Combo) && Spells.W.IsReady())
+                if ((Orbwalker.ActiveModesFlags == Orbwalker.ActiveModes.Harass ||
+                     Orbwalker.ActiveModesFlags == Orbwalker.ActiveModes.Combo) && Spells.W.IsReady())
                 {
                     if (Utils.isChecked(MenuX.Combo, "ComboQ") || Utils.isChecked(MenuX.Harass, "HarassW"))
-                    Spells.W.Cast();
+                        Spells.W.Cast();
                 }
             }
         }
@@ -108,13 +103,16 @@ namespace Kassawin
             var pos = Game.CursorPos;
             if (Spells.R.IsReady())
             {
-                    Spells.R.Cast(pos);
+                Spells.R.Cast(pos);
             }
-         }
+        }
 
         public static void JungleClear()
         {
-            var minions = EntityManager.GetJungleMonsters(Utils._Player.Position.To2D(), Spells.Q.Range).OrderByDescending(x => x.MaxHealth).First();
+            var minions =
+                EntityManager.GetJungleMonsters(Utils._Player.Position.To2D(), Spells.Q.Range)
+                    .OrderByDescending(x => x.MaxHealth)
+                    .First();
             if (Spells.Q.IsReady() &&
                 minions.IsValidTarget(Spells.Q.Range) &&
                 Utils.isChecked(MenuX.JungleClear, "JungleQ") &&
@@ -160,7 +158,6 @@ namespace Kassawin
                     eM != null)
                     Spells.E.Cast(eM.Position);
             }
-
         }
- }
+    }
 }

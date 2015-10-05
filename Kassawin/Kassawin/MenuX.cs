@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using EloBuddy.SDK.Menu;
+﻿using EloBuddy.SDK.Menu;
 using EloBuddy.SDK.Menu.Values;
 
 namespace Kassawin
 {
-    class MenuX
+    internal class MenuX
     {
         public static Menu Kassawin, Combo, Harass, LaneClear, JungleClear, Misc;
         public static Slider SkinSelect;
@@ -65,7 +60,6 @@ namespace Kassawin
             Misc.Add("drawR", new CheckBox("Draw R Range"));
             Misc.AddSeparator();
             SkinSelect = Misc.Add("skinSelect", new Slider("Choose you Skin [number]", 0, 0, 6));
-            
         }
     }
 }
