@@ -110,9 +110,9 @@ namespace Kassawin
         public static void JungleClear()
         {
             var minions =
-                EntityManager.GetJungleMonsters(Utils._Player.Position.To2D(), Spells.Q.Range)
+                EntityManager.MinionsAndMonsters.GetJungleMonsters(Utils._Player.Position, Spells.Q.Range)
                     .OrderByDescending(x => x.MaxHealth)
-                    .First();
+                    .FirstOrDefault();
             if (Spells.Q.IsReady() &&
                 minions.IsValidTarget(Spells.Q.Range) &&
                 Utils.isChecked(MenuX.JungleClear, "JungleQ") &&
@@ -131,8 +131,8 @@ namespace Kassawin
 
         public static void LaneClear()
         {
-            var minions = EntityManager.GetLaneMinions(EntityManager.UnitTeam.Enemy, Utils._Player.Position.To2D(),
-                Spells.E.Range, true);
+            var minions = EntityManager.MinionsAndMonsters.GetLaneMinions(EntityManager.UnitTeam.Enemy,
+                Utils._Player.Position, Spells.Q.Range, true);
 
 
             if (Spells.Q.IsReady() && Utils.isChecked(MenuX.LaneClear, "LaneQ") &&
