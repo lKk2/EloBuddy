@@ -103,7 +103,7 @@ namespace Kassawin
             var pos = Game.CursorPos;
             if (Spells.R.IsReady())
             {
-                Spells.R.Cast(pos);
+                Player.CastSpell(SpellSlot.R, Game.CursorPos);
             }
         }
 
