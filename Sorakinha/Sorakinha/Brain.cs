@@ -1,183 +1,192 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using EloBuddy;
 using EloBuddy.SDK;
 using EloBuddy.SDK.Enumerations;
 using EloBuddy.SDK.Events;
-using EloBuddy.SDK.Menu;
 using EloBuddy.SDK.Menu.Values;
 
 namespace Sorakinha
 {
-    class Brain
+    internal class Brain
     {
-        public static AIHeroClient _Player { get { return ObjectManager.Player; } }
+        private const int XOffset = 10;
+        private const int YOffset = 20;
+        private const int Width = 103;
+        private const int Height = 8;
 
-        #region Combo
-
-        public static void Combo()
+        public static AIHeroClient _Player
         {
-            var autoW = MenuX.Healing["useW"].Cast<CheckBox>().CurrentValue;
-            if (autoW && Program.W.IsReady())
+            get { return ObjectManager.Player; }
+        }
+
+        public static void Loading_OnLoadingComplete(EventArgs args)
+        {
+            if (ObjectManager.Player.ChampionName.ToLower() != "soraka") return; // check if hero is not soraka 
+            Bootstrap.Init(null);
+            Spells.getSpells();
+            MenuX.CallMeNigga(); // calls the menu!
+            Chat.Print("Sorakinha Loaded!", Color.DeepPink);
+            Game.OnTick += Game_OnTick;
+            Orbwalker.OnPreAttack += Flags.Orbwalker_OnPreAttack;
+            Gapcloser.OnGapcloser += Flags.Gapcloser_OnGapCloser;
+            Interrupter.OnInterruptableSpell += Flags.Interrupter_OnInterruptableSpell;
+            Drawing.OnDraw += Drawing_OnDraw;
+            MenuX.SkinSelect.OnValueChange +=
+                delegate (ValueBase<int> sender, ValueBase<int>.ValueChangeArgs a)
+                {
+                    Utils._Player.SetSkin(Utils._Player.ChampionName, a.NewValue);
+                };
+        }
+
+        public static void Game_OnTick(EventArgs args)
+        {
+            var autoW = Utils.isChecked(MenuX.Healing, "useW");
+            if (autoW && Spells.W.IsReady())
             {
                 AutoW();
             }
-            if (Program.R.IsReady())
+            if (Spells.R.IsReady())
             {
                 AutoR();
             }
-            var useQ = MenuX.Combo["useQCombo"].Cast<CheckBox>().CurrentValue;
-            var useE = MenuX.Combo["useECombo"].Cast<CheckBox>().CurrentValue;
-            var minMana = MenuX.Combo["minMcombo"].Cast<Slider>().CurrentValue;
-
-            var target = TargetSelector.GetTarget(Program.Q.Range, DamageType.Magical);
-            if (target == null) return;
-            if (useQ && Program.Q.IsReady() && _Player.ManaPercent >= minMana)
+            switch (Orbwalker.ActiveModesFlags)
             {
-                Program.Q.Cast(target);
-            }
-            if (useE && Program.E.IsReady() && _Player.ManaPercent >= minMana)
-            {
-                Program.E.Cast(target);
+                case Orbwalker.ActiveModes.Combo:
+                    Flags.Combo();
+                    return;
+                case Orbwalker.ActiveModes.Harass:
+                    Flags.Harass();
+                    return;
             }
         }
-        #endregion
 
-        #region Harass
-        public static void Harass()
+        private static void Drawing_OnDraw(EventArgs args)
         {
-            var autoW = MenuX.Healing["useW"].Cast<CheckBox>().CurrentValue;
-            if (autoW && Program.W.IsReady())
+            var hBar = Utils.isChecked(MenuX.Drawing, "drawH");
+            if (hBar)
             {
-                AutoW();
+                //Brain.DrawWbar();
+                foreach (var hero in EntityManager.Heroes.Allies)
+                {
+                    var pos = hero.HPBarPosition;
+                    if (!hero.IsDead && !hero.IsMe &&
+                        hero.HealthPercent <= Utils.getSliderValue(MenuX.Healing, "wpct" + hero.ChampionName))
+                    {
+                        // Brain.DrawWbar();
+                        Drawing.DrawText(pos.X + 110, pos.Y - 5, Color.Tomato, "H");
+                    }
+                }
             }
-            if (Program.R.IsReady())
+            var QRange = Utils.isChecked(MenuX.Drawing, "drawQ");
+            var ERange = Utils.isChecked(MenuX.Drawing, "drawE");
+            if (QRange)
             {
-                AutoR();
+                Drawing.DrawCircle(_Player.Position, Spells.Q.Range, Spells.Q.IsReady() ? Color.Aqua : Color.Red);
             }
-            var useQ = MenuX.Harass["useQHarass"].Cast<CheckBox>().CurrentValue;
-            var useE = MenuX.Harass["useEHarass"].Cast<CheckBox>().CurrentValue;
-            var minMana = MenuX.Harass["minMharass"].Cast<Slider>().CurrentValue;
-          
-            var target = TargetSelector.GetTarget(Program.Q.Range, DamageType.Magical);
-            if (target == null) return;
-            if (useQ && Program.Q.IsReady() && _Player.ManaPercent >= minMana && Program.Q.GetPrediction(target).HitChance >= getPred())
+            if (ERange)
             {
-                Program.Q.Cast(target);
-                //Chat.Print("HitChange: " + preDS);
-            }
-            if (useE && Program.E.IsReady() && _Player.ManaPercent >= minMana && Program.E.GetPrediction(target).HitChance >= getPred())
-            {
-                Program.E.Cast(target);
+                Drawing.DrawCircle(_Player.Position, Spells.E.Range, Spells.E.IsReady() ? Color.Aqua : Color.Red);
             }
         }
-
-        #endregion
 
         #region Auto R
 
         public static void AutoR()
         {
-            var useR = MenuX.Healing["useR"].Cast<CheckBox>().CurrentValue;
-            if (!Program.R.IsReady() && useR) return;
-                if (
-                    ObjectManager.Get<AIHeroClient>()
-                        .Where(x => x.IsAlly && x.IsValidTarget(float.MaxValue))
-                        .Select(x => (int) x.Health/x.MaxHealth*100)
-                        .Select(
-                            friendHealth =>
-                                new {friendHealth, health = MenuX.Healing["useRslider"].Cast<Slider>().CurrentValue})
-                        .Where(x => x.friendHealth <= x.health)
-                        .Select(x => x.friendHealth)
-                        .Any()
-                        )
-                {
-                    Program.R.Cast();
-                }
+            var useR = Utils.isChecked(MenuX.Healing, "useR");
+            if (!Spells.R.IsReady() && useR) return;
+            if (
+                ObjectManager.Get<AIHeroClient>()
+                    .Where(x => x.IsAlly && x.IsValidTarget(float.MaxValue))
+                    .Select(x => (int) x.Health/x.MaxHealth*100)
+                    .Select(
+                        friendHealth =>
+                            new {friendHealth, health = Utils.getSliderValue(MenuX.Healing, "useRslider")})
+                    .Where(x => x.friendHealth <= x.health)
+                    .Select(x => x.friendHealth)
+                    .Any()
+                )
+            {
+                Spells.R.Cast();
             }
+        }
 
         #endregion
 
         #region Auto W
+
         public static void AutoW()
         {
-            var test = HeroManager.Allies.Where(
+            var test = EntityManager.Heroes.Allies.Where(
                 hero => !hero.IsMe && !hero.IsDead && !hero.IsInShopRange()
                         && !hero.IsZombie &&
-                        hero.Distance(_Player) <= Program.W.Range &&
+                        hero.Distance(_Player) <= Spells.W.Range &&
                         MenuX.Healing["w" + hero.ChampionName].Cast<CheckBox>().CurrentValue &&
                         hero.HealthPercent <= MenuX.Healing["wpct" + hero.ChampionName].Cast<Slider>().CurrentValue
                 ).ToList();
             var allytoheal = test.OrderBy(x => x.Health).FirstOrDefault(x => !x.IsInShopRange());
             if (allytoheal != null)
             {
-                Program.W.Cast(allytoheal);
+                Spells.W.Cast(allytoheal);
             }
-
         }
+
         #endregion
 
         #region Calcs
+
         public static HitChance getPred()
         {
-            var preDS = MenuX.Harass["predNeeded"].Cast<Slider>().CurrentValue;
+            var preDS = Utils.getSliderValue(MenuX.Harass, "predNeeded");
             switch (preDS)
             {
                 case 1:
                     return HitChance.Low;
-                case 2: 
+                case 2:
                     return HitChance.Medium;
-                case 3: 
+                case 3:
                     return HitChance.High;
             }
             return HitChance.Unknown;
         }
+
         #endregion
 
-        #region Gap/Interrupter
-        public static void Gapcloser_OnGapCloser(AIHeroClient sender, Gapcloser.GapcloserEventArgs e)
+        #region Healing Bar Calcs
+
+        public static float WHeal(Obj_AI_Base target)
         {
-            var useQ = MenuX.Misc["useQGapCloser"].Cast<CheckBox>().CurrentValue;
-            var useE = MenuX.Misc["useEGapCloser"].Cast<CheckBox>().CurrentValue;
-            if (useQ && Program.Q.IsReady())
-            {
-                Program.Q.Cast(sender);
-            }
-            if (useE && Program.E.IsReady())
-            {
-                Program.E.Cast(sender);
-            }
+            return _Player.CalculateDamageOnUnit(target, DamageType.Magical,
+                (float) (new[] {120, 150, 180, 210, 240}[Spells.W.Level] + 0.6*_Player.FlatMagicDamageMod));
         }
 
-        public static void Interrupter_OnInterruptableSpell(Obj_AI_Base sender,
-            Interrupter.InterruptableSpellEventArgs e)
+        public static void DrawWbar()
         {
-            var unit = sender;
-            var spell = e;
-            var useE = MenuX.Misc["eInterrupt"].Cast<CheckBox>().CurrentValue;
-            if (!useE || spell.DangerLevel != DangerLevel.High) return;
-            if (!unit.IsValidTarget(Program.E.Range)) return;
-            if (!Program.E.IsReady()) return;
-            Program.E.Cast(unit);
-
-
-        }
-        #endregion
-
-        public static void Orbwalker_OnPreAttack(AttackableUnit target, Orbwalker.PreAttackArgs args)
-        {
-            var useAAminion = MenuX.Misc["AttackMinions"].Cast<CheckBox>().CurrentValue;
-            if (useAAminion && target.Type == GameObjectType.obj_AI_Minion)
+            foreach (
+                var unit in ObjectManager.Get<AIHeroClient>().Where(h => h.IsValid && h.IsHPBarRendered && h.IsAlly))
             {
-                var allyinrange = HeroManager.Allies.Count(x => !x.IsMe && x.Distance(_Player) <= 1200);
-                if (allyinrange > 0)
+                var barPos = unit.HPBarPosition;
+                var healing = WHeal(unit);
+                var pctgAfterHeal = Math.Max(0, unit.Health + healing)/unit.MaxHealth;
+                var yPos = barPos.Y + YOffset;
+                var xPosDamage = barPos.X + XOffset + Width*pctgAfterHeal;
+                var xPosCurrentHp = barPos.X + XOffset + Width*unit.Health/unit.MaxHealth;
+
+                if (healing > unit.Health)
                 {
-                    args.Process = false;
+                    Drawing.DrawLine(xPosDamage, yPos, xPosDamage, yPos + Height, 2, Color.Lime);
+                }
+                var diffhp = xPosCurrentHp + xPosDamage;
+                var pos1 = barPos.X + 9 + (107*pctgAfterHeal);
+                for (var i = 0; i < diffhp; i++)
+                {
+                    Drawing.DrawLine(pos1 + i, yPos, pos1 + i, yPos + Height, 1, Color.Goldenrod);
                 }
             }
         }
+
+        #endregion
     }
 }

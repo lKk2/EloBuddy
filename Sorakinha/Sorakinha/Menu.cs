@@ -1,23 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using EloBuddy.SDK.Menu;
-using EloBuddy;
+﻿using System.Linq;
 using EloBuddy.SDK;
-using EloBuddy.SDK.Enumerations;
+using EloBuddy.SDK.Menu;
 using EloBuddy.SDK.Menu.Values;
 
 namespace Sorakinha
 {
-    class MenuX
+    internal class MenuX
     {
         public static Menu Soraka, Combo, Harass, Healing, Drawing, Misc;
         public static string[] PredictionSliderValues = {"Low", "Medium", "High"};
+        public static Slider SkinSelect;
         /*
         Create the Menu ^.^
         */
+
         public static void CallMeNigga()
         {
             // Main Menu
@@ -43,11 +39,12 @@ namespace Sorakinha
             Harass.Add("useEHarass", new CheckBox("Use E"));
             Harass.Add("minMharass", new Slider("Mana % for Harras", 20));
             Harass.AddSeparator();
-            var sliderValue = Harass.Add("predNeeded", new Slider("Prediction Hitchange: ", 1, 2, 3));
-            sliderValue.OnValueChange += delegate
-            {
-                sliderValue.DisplayName = "Prediction Hitchange: " + PredictionSliderValues[sliderValue.CurrentValue];
-            };
+            var sliderValue = Harass.Add("predNeeded", new Slider("Prediction Hitchange: ", 0, 0, 2));
+            sliderValue.OnValueChange +=
+                delegate
+                {
+                    sliderValue.DisplayName = "Prediction Hitchange: " + PredictionSliderValues[sliderValue.CurrentValue];
+                };
             sliderValue.DisplayName = "Prediction Hitchange: " + PredictionSliderValues[sliderValue.CurrentValue];
 
             // Healing Menu
@@ -61,7 +58,7 @@ namespace Sorakinha
             /** 
             The Magic ~ 
             **/
-            foreach (var hero in HeroManager.Allies.Where(x => !x.IsMe))
+            foreach (var hero in EntityManager.Heroes.Allies.Where(x => !x.IsMe))
             {
                 Healing.AddSeparator();
                 Healing.Add("w" + hero.ChampionName, new CheckBox("Heal " + hero.ChampionName));
@@ -85,6 +82,7 @@ namespace Sorakinha
             Misc.Add("useEGapCloser", new CheckBox("E on GapCloser"));
             Misc.Add("eInterrupt", new CheckBox("use E to Interrupt"));
             Misc.Add("AttackMinions", new CheckBox("Attack Minions"));
+            SkinSelect = Misc.Add("skinSelect", new Slider("Choose you Skin [number]", 0, 0, 5));
 
             // Drawing Menu
             Drawing = Soraka.AddSubMenu("Drawing", "Drawing");
