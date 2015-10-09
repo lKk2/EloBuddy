@@ -22,13 +22,12 @@ namespace SwagZilean
             Bootstrap.Init(null);
             Spells.getSpells();
             MenuX.getMenu();
-            Chat.Print("Swaggggg Zileeeeean Loaded!", Color.DeepPink);
             Orbwalker.OnPreAttack += BeforeAttack;
             Gapcloser.OnGapcloser += OnGapCloser;
             Interrupter.OnInterruptableSpell += Interrupt;
             Game.OnTick += OnTick;
             Drawing.OnDraw += Drawings.OnDraw;
-            _Player.SetSkin(_Player.ChampionName, 5);
+            _Player.SetSkin(_Player.ChampionName, Utils.getSliderValue(MenuX.Misc, "skinX"));
             MenuX.SkinSelect.OnValueChange +=
                 delegate(ValueBase<int> sender, ValueBase<int>.ValueChangeArgs aargs)
                 {
