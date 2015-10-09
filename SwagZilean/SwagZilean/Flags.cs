@@ -13,6 +13,7 @@ namespace SwagZilean
 
         public static void Combo()
         {
+            Brain.AutoR(); // ult on combo orly?
             var target = TargetSelector.GetTarget(Spells.Q.Range, DamageType.Magical);
             if (target == null || !target.IsValid) return;
 
@@ -45,7 +46,7 @@ namespace SwagZilean
                 if (pred.HitChance >= hitC)
                     Spells.Q.Cast(pred.CastPosition);
             }
-            if (useW && Spells.W.IsReady())
+            if (useW && Spells.W.IsReady() && Spells.Q.IsOnCooldown)
             {
                 Spells.W.Cast();
                 if (Spells.Q.IsReady())
@@ -59,6 +60,7 @@ namespace SwagZilean
 
         public static void Harass()
         {
+            Brain.AutoR(); // ult on harass orly?
             var target = TargetSelector.GetTarget(Spells.Q.Range, DamageType.Magical);
             if (target == null || !target.IsValid) return;
 
@@ -81,7 +83,7 @@ namespace SwagZilean
 
             if (Spells.W.IsReady() &&
                 useW &&
-                manaS <= _Player.ManaPercent)
+                manaS <= _Player.ManaPercent && Spells.Q.IsOnCooldown)
             {
                 Spells.W.Cast();
             }

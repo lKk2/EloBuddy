@@ -38,6 +38,7 @@ namespace SwagZilean
 
         private static void OnTick(EventArgs args)
         {
+            AutoR();
             switch (Orbwalker.ActiveModesFlags)
             {
                 case Orbwalker.ActiveModes.Combo:
@@ -53,8 +54,6 @@ namespace SwagZilean
                     Flags.Flee();
                     break;
             }
-
-            AutoR();
         }
 
         private static void BeforeAttack(AttackableUnit target, Orbwalker.PreAttackArgs args)
@@ -96,7 +95,7 @@ namespace SwagZilean
             }
         }
 
-        private static void AutoR()
+        public static void AutoR()
         {
             if (Spells.R.IsReady())
             {
