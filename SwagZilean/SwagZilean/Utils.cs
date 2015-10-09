@@ -26,11 +26,11 @@ namespace SwagZilean
             var s = getSliderValue(obj, value);
             switch (s)
             {
-                case 1:
+                case 0:
                     return HitChance.Low;
-                case 2:
+                case 1:
                     return HitChance.Medium;
-                case 3:
+                case 2:
                     return HitChance.High;
             }
             return HitChance.Medium;
