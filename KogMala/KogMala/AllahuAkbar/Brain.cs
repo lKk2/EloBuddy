@@ -56,7 +56,8 @@ namespace KogMala.AllahuAkbar
         {
             if (sender.IsEnemy &&
                 sender is AIHeroClient &&
-                !sender.IsDead && !sender.IsZombie)
+                !sender.IsDead && !sender.IsZombie &&
+                Misc.isChecked(MiscMenu, "useEgap"))
             {
                 MananDamage.SetMana();
                 if (E.IsReady() && _Player.Mana > Rmana + Emana)

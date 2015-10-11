@@ -45,6 +45,7 @@ namespace KogMala.AllahuAkbar
             MiscMenu.AddGroupLabel("Misc Options");
             MiscMenu.AddSeparator();
             MiscMenu.Add("autoPilot", new CheckBox("AutoPilot Passive of Kog"));
+            MiscMenu.Add("useEgap", new CheckBox("Use E on GapCloser"));
             MiscMenu.AddSeparator();
             SkinSelect = MiscMenu.Add("skinSelect", new Slider("Choose your Skin [number]", 5, 0, 8));
             SkinSelect.OnValueChange +=
