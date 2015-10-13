@@ -73,7 +73,7 @@ namespace KayleBuddy
 
         public static void JungleClear()
         {
-            var jgminions = EntityManager.GetJungleMonsters(Utils._Player.Position.To2D(), 1000, true);
+            var jgminions = EntityManager.MinionsAndMonsters.GetJungleMonsters(Utils._Player.Position, 1000, true);
             var m = jgminions.OrderByDescending(x => x.MaxHealth);
             if (Spells.E.IsReady() &&
                 m.Any() &&

@@ -119,9 +119,9 @@ namespace Veigar
                         Spells.Q.Cast(pred.CastPosition);
                 }
             }
-            var minions = EntityManager.GetLaneMinions(EntityManager.UnitTeam.Enemy, Utils._Player.Position.To2D(), Spells.Q.Range,
+            var minions = EntityManager.MinionsAndMonsters.GetLaneMinions(EntityManager.UnitTeam.Enemy, Utils._Player.Position, Spells.Q.Range,
                 true);
-            if (minions.Count > 3 && Spells.W.IsReady() && Utils.isChecked(MenuX.LaneClear, "useWL") &&
+            if (minions.Count() > 3 && Spells.W.IsReady() && Utils.isChecked(MenuX.LaneClear, "useWL") &&
                 Utils.getSliderValue(MenuX.LaneClear, "minML") <= Utils._Player.ManaPercent)
             {
                 foreach (var minion in minions.Where(x => x.IsValidTarget(Spells.W.Range + Spells.W.Width)))

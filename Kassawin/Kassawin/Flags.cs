@@ -151,7 +151,7 @@ namespace Kassawin
             if (Spells.E.IsReady() && Utils.isChecked(MenuX.LaneClear, "LaneE") &&
                 Utils._Player.ManaPercent >= Utils.getSliderValue(MenuX.LaneClear, "manaPCTL"))
             {
-                var cc = minions.Count;
+                var cc = minions.Count();
                 var eM = minions.FirstOrDefault(x => x.Health < DamageLib.EDamage(x));
                 if (cc >= 3 &&
                     eM.IsValidTarget(Spells.E.Range) &&

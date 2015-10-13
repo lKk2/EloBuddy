@@ -1,4 +1,5 @@
-﻿using EloBuddy.SDK;
+﻿using System.Linq;
+using EloBuddy.SDK;
 using KogMala.AllahuAkbar;
 using KogMala.Utils;
 
@@ -12,7 +13,7 @@ namespace KogMala.Modes
             var minions = EntityManager.MinionsAndMonsters.GetLaneMinions(EntityManager.UnitTeam.Enemy, _Player.Position,
                 W.Range);
 
-            if (W.IsReady() && useW && minions.Count >= 3)
+            if (W.IsReady() && useW && minions.Count() >= 3)
             {
                 W.Cast();
             }

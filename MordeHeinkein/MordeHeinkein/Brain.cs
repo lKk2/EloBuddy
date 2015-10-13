@@ -92,7 +92,7 @@ namespace MordeHeinkein
         {
             if (W.IsReady() && _Player.Spellbook.GetSpell(SpellSlot.W).Name != "mordekaisercreepingdeath2")
             {
-                foreach (var ally in HeroManager.Allies.Where(
+                foreach (var ally in EntityManager.Heroes.Allies.Where(
                     a => !a.IsDead &&
                          !a.IsMe &&
                          a.Position.Distance(_Player.Position) < W.Range &&
@@ -236,9 +236,9 @@ namespace MordeHeinkein
 
         private static void LaneClear()
         {
-            var minions = EntityManager.GetLaneMinions(EntityManager.UnitTeam.Enemy, _Player.Position.To2D(), E.Range,
+            var minions = EntityManager.MinionsAndMonsters.GetLaneMinions(EntityManager.UnitTeam.Enemy, _Player.Position, E.Range,
                 true);
-            if (minions.Count >= 3)
+            if (minions.Count() >= 3)
             {
                 foreach (var minion in minions.Where(x => x.IsValidTarget(E.Range)).OrderBy(e => e.MaxHealth))
                 {
@@ -256,7 +256,7 @@ namespace MordeHeinkein
 
         private static void JungleClear()
         {
-            foreach (var m in EntityManager.GetJungleMonsters(_Player.Position.To2D(), 1000f))
+            foreach (var m in EntityManager.MinionsAndMonsters.GetJungleMonsters(_Player.Position, 1000f))
             {
                 if (m.IsValidTarget())
                 {
