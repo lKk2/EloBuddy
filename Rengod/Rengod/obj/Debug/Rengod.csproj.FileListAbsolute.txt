@@ -1,0 +1,12 @@
+c:\users\kk2\documents\visual studio 2015\Projects\Rengod\Rengod\bin\Debug\Rengod.exe.config
+C:\Users\Kk2\documents\visual studio 2015\Projects\Rengod\Rengod\bin\Debug\Rengod.exe
+C:\Users\Kk2\documents\visual studio 2015\Projects\Rengod\Rengod\bin\Debug\Rengod.pdb
+C:\Users\Kk2\documents\visual studio 2015\Projects\Rengod\Rengod\bin\Debug\EloBuddy.dll
+C:\Users\Kk2\documents\visual studio 2015\Projects\Rengod\Rengod\bin\Debug\EloBuddy.Sandbox.dll
+C:\Users\Kk2\documents\visual studio 2015\Projects\Rengod\Rengod\bin\Debug\EloBuddy.SDK.dll
+C:\Users\Kk2\documents\visual studio 2015\Projects\Rengod\Rengod\bin\Debug\SharpDX.Direct3D9.dll
+C:\Users\Kk2\documents\visual studio 2015\Projects\Rengod\Rengod\bin\Debug\SharpDX.dll
+C:\Users\Kk2\documents\visual studio 2015\Projects\Rengod\Rengod\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Kk2\documents\visual studio 2015\Projects\Rengod\Rengod\obj\Debug\Rengod.csprojResolveAssemblyReference.cache
+C:\Users\Kk2\documents\visual studio 2015\Projects\Rengod\Rengod\obj\Debug\Rengod.exe
+C:\Users\Kk2\documents\visual studio 2015\Projects\Rengod\Rengod\obj\Debug\Rengod.pdb
