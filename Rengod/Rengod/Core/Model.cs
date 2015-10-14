@@ -64,7 +64,7 @@ namespace Rengod.Core
         {
             foreach (
                 var buff in
-                    _Player.Buffs.Where(o => o.IsValid).Where(buff => buff.DisplayName.Contains("RengarPassiveBuff")))
+                    _Player.Buffs.Where(o => o.IsValid).Where(buff => buff.DisplayName.Contains("rengarpassivebuff"))) // will never find it doge
             {
                 return true;
             }
