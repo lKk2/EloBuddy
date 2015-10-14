@@ -20,12 +20,12 @@ namespace Rengod.Core
             Potion = new Item((int) ItemId.Health_Potion);
         }
 
-        public static void useHydra()
+        public static void useHydra(Obj_AI_Base target)
         {
             var useH = Misc.isChecked(ItemsMenu, "useHydra");
             if (Tiamat.IsOwned() || Hydra.IsOwned() && useH)
             {
-                if (Tiamat.IsReady() || Hydra.IsReady())
+                if ((Tiamat.IsReady() || Hydra.IsReady()) && _Player.Distance(target) <= Hydra.Range)
                 {
                     Tiamat.Cast();
                     Hydra.Cast();
@@ -33,6 +33,19 @@ namespace Rengod.Core
             }
         }
 
+        public static void useHydraNot()
+        {
+            var useH = Misc.isChecked(ItemsMenu, "useHydra");
+            if (Tiamat.IsOwned() || Hydra.IsOwned() && useH)
+            {
+                if ((Tiamat.IsReady() || Hydra.IsReady()))
+                {
+                    Tiamat.Cast();
+                    Hydra.Cast();
+                }
+            }
+        }
+    
         public static void useYoumu()
         {
             var useY = Misc.isChecked(ItemsMenu, "useYoumu");

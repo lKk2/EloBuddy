@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Linq;
 using EloBuddy;
 using EloBuddy.SDK;
 using EloBuddy.SDK.Events;
@@ -36,6 +37,7 @@ namespace Rengod.Core
 
         private static void OnTick(EventArgs args)
         {
+
             switch (Orbwalker.ActiveModesFlags)
             {
                 case Orbwalker.ActiveModes.Combo:
@@ -119,7 +121,7 @@ namespace Rengod.Core
                     {
                         Casts.useW(target);
                         Player.IssueOrder(GameObjectOrder.AttackUnit, target);
-                        Items.useHydra();
+                        Items.useHydra(target);
                     }
                 }
             }
@@ -139,7 +141,7 @@ namespace Rengod.Core
                 }
                 if (args.SData.Name.Contains("Attack") && onCombo)
                 {
-                    EloBuddy.SDK.Core.DelayAction(Items.useHydra,
+                    EloBuddy.SDK.Core.DelayAction(Items.useHydraNot,
                         50 + (int) (_Player.AttackDelay*100) + Game.Ping/2 + 10);
                 }
             }

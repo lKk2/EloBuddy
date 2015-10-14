@@ -23,7 +23,7 @@ namespace Rengod.Modes
             if (W.IsReady() && _Player.Distance(minions) <= 450 && useW)
             {
                 W.Cast();
-                Items.useHydra();
+                Items.useHydra(minions);
             }
 
             if (E.IsReady() &&

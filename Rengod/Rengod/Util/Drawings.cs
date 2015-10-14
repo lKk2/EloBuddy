@@ -17,6 +17,8 @@ namespace Rengod.Util
             var drawR = Misc.isChecked(DrawingMenu, "drawR");
             var drawC = Misc.isChecked(DrawingMenu, "drawC");
             var drawK = Misc.isChecked(DrawingMenu, "drawK");
+            var xPos = Misc.getSliderValue(DrawingMenu, "posX");
+            var yPos = Misc.getSliderValue(DrawingMenu, "posY");
 
             if (drawQ)
                 new Circle {Color = Q.IsReady() ? Color.White : Color.Red, Radius = Q.Range, BorderWidth = 2f}.Draw(
@@ -31,7 +33,7 @@ namespace Rengod.Util
                 new Circle {Color = R.IsReady() ? Color.White : Color.Red, Radius = R.Range, BorderWidth = 2f}.Draw(
                     _Player.Position);
             if (drawC)
-                Drawing.DrawText(50, 50, Color.DeepPink,
+                Drawing.DrawText(xPos, yPos, Color.DeepPink,
                     "Current Combo Prioritize: " + MenuX.prio[Misc.getSliderValue(ComboMenu, "cPrio")]);
             if (drawK)
             {

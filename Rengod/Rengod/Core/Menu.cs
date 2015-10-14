@@ -1,4 +1,5 @@
-﻿using EloBuddy.SDK.Menu;
+﻿using System.Security.Cryptography;
+using EloBuddy.SDK.Menu;
 using EloBuddy.SDK.Menu.Values;
 
 namespace Rengod.Core
@@ -7,6 +8,7 @@ namespace Rengod.Core
     {
         public static string[] prio = {"E", "Q", "W"};
         public static Slider ComboPrio, HarassPrio, SkinHax;
+        public static KeyBind ComboKey;
 
         public static void getMenu()
         {
@@ -31,9 +33,24 @@ namespace Rengod.Core
             ComboPrio.OnValueChange +=
                 delegate { ComboPrio.DisplayName = "Prioritize: " + prio[ComboPrio.CurrentValue]; };
             ComboPrio.DisplayName = "Prioritize: " + prio[ComboPrio.CurrentValue];
+            ComboKey = ComboMenu.Add("changeC",
+                new KeyBind("Press to change Combo Prioritize", false, KeyBind.BindTypes.PressToggle, 'N'));
+            ComboKey.OnValueChange += delegate
+            {
+                var x = ComboPrio.CurrentValue;
+                if (x == 2)
+                {
+                    ComboPrio.CurrentValue = 0;
+                }
+                else
+                {
+                    ComboPrio.CurrentValue = ComboPrio.CurrentValue +1;
+                }
+            };
             ComboMenu.AddSeparator();
             ComboMenu.Add("useIG", new CheckBox("Use Ignite on Combo"));
             ComboMenu.Add("useSmite", new CheckBox("Use Smite on Combo"));
+            
 
             /*
             Harass Menu
@@ -105,8 +122,11 @@ namespace Rengod.Core
             DrawingMenu.Add("drawW", new CheckBox("Draw W Range"));
             DrawingMenu.Add("drawE", new CheckBox("Draw E Range"));
             DrawingMenu.Add("drawR", new CheckBox("Draw R Range"));
-            DrawingMenu.Add("drawC", new CheckBox("Draw Current Combo Prioritize"));
             DrawingMenu.Add("drawK", new CheckBox("Draw H on Killable Enemies"));
+            DrawingMenu.AddSeparator();
+            DrawingMenu.Add("drawC", new CheckBox("Draw Current Combo Prioritize"));
+            DrawingMenu.Add("posX", new Slider("X Position", 50, 0, 2000));
+            DrawingMenu.Add("posY", new Slider("Y Position", 50, 0, 2000));
         }
     }
 }

@@ -48,7 +48,7 @@ namespace Rengod.Modes
                 if (!_Player.IsDashing() && useW)
                 {
                     Casts.useW(target);
-                    Items.useHydra();
+                    Items.useHydra(target);
                 }
 
                 if (useE)
