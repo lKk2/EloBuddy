@@ -105,12 +105,12 @@ namespace KayleBuddy
         #region Ult/Heal Manager
         public static void UltManager()
         {
-            if (Utils._Player.IsDead || !Spells.R.IsReady() || Utils._Player.IsRecalling) return;
+            if (Utils._Player.IsDead || !Spells.R.IsReady() || Utils._Player.IsRecalling()) return;
 
             var getUlt = HeroManager.Allies.Where(
-                h => !h.IsDead && !h.IsRecalling &&
+                h => !h.IsDead && !h.IsRecalling() &&
                      h.Distance(Utils._Player) <= Spells.R.Range &&
-                     !Utils._Player.IsRecalling &&
+                     !Utils._Player.IsRecalling() &&
                      Utils.isChecked(MenuX.UltMenu, "UseR" + h.ChampionName) &&
                      h.HealthPercent <= Utils.getSliderValue(MenuX.UltMenu, "minHPR" + h.ChampionName) &&
                      Utils._Player.CountEnemiesInRange(1200) > 0).ToList();
@@ -121,12 +121,12 @@ namespace KayleBuddy
 
         private static void HealingMachine()
         {
-            if (Utils._Player.IsDead || !Spells.W.IsReady() || Utils._Player.IsRecalling) return;
+            if (Utils._Player.IsDead || !Spells.W.IsReady() || Utils._Player.IsRecalling()) return;
 
             var test = HeroManager.Allies.Where(
                 hero => !hero.IsDead && !hero.IsInShopRange()
-                        && !hero.IsZombie && !hero.IsRecalling && 
-                        !Utils._Player.IsRecalling &&
+                        && !hero.IsZombie && !hero.IsRecalling() && 
+                        !Utils._Player.IsRecalling() &&
                         hero.Distance(Utils._Player) <= Spells.W.Range &&
                         Utils.isChecked(MenuX.HealingMenu, "UseW" + hero.ChampionName) &&
                         hero.HealthPercent <= Utils.getSliderValue(MenuX.HealingMenu, "minHPW" + hero.ChampionName)

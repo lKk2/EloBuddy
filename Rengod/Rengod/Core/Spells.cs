@@ -20,7 +20,7 @@ namespace Rengod.Core
         {
             var useHeal = Misc.isChecked(MiscMenu, "useHeal");
             var hpTo = Misc.getSliderValue(MiscMenu, "hpHeal");
-            if (_Player.IsRecalling || _Player.IsInShopRange() || Ferocity < 5 || RengarR || !useHeal) return;
+            if (_Player.IsRecalling() || _Player.IsInShopRange() || Ferocity < 5 || RengarR || !useHeal) return;
 
             if (_Player.HealthPercent <= hpTo && W.IsReady())
                 W.Cast();

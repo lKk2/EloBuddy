@@ -71,7 +71,7 @@ namespace Veigar
         {
             if (!Spells.Q.IsLearned) return;
             if (MenuX.LastHit["farmQActive"].Cast<KeyBind>().CurrentValue
-               && !Utils._Player.IsRecalling
+               && !Utils._Player.IsRecalling()
                && !Utils._Player.IsDead)
             {
                 if (Utils.getSliderValue(MenuX.LastHit, "farmSlider") <= Utils._Player.ManaPercent)
