@@ -32,7 +32,7 @@ namespace Veigar
             Gapcloser.OnGapcloser += Flags.GapCloserino;
             Dash.OnDash += Flags.Unit_OnDash;
 
-            _Player.SetSkin(_Player.ChampionName, 8);
+            _Player.SetSkin(_Player.ChampionName, Utils.getSliderValue(MenuX.Misc, "ChangeSkin"));
             MenuX.skinSelect.OnValueChange += delegate(ValueBase<int> sender, ValueBase<int>.ValueChangeArgs args)
             {
                 _Player.SetSkin(_Player.ChampionName, args.NewValue);
