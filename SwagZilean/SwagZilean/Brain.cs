@@ -59,7 +59,7 @@ namespace SwagZilean
         {
             if (Utils.isChecked(MenuX.Misc, "Support") && target.Type == GameObjectType.obj_AI_Minion)
             {
-                var allyinrage = EntityManager.Heroes.Allies.Count(x => !x.IsMe && x.Distance(_Player) <= 1200);
+                var allyinrage = EntityManager.Heroes.Allies.Count(x => !x.IsMe && x.Distance(_Player) <= 0x4b0);
                 if (allyinrage > 0)
                     args.Process = false;
             }

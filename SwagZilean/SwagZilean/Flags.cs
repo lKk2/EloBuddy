@@ -40,7 +40,7 @@ namespace SwagZilean
                         break;
                 }
             }
-            if (useQ && Spells.Q.IsReady() && target.IsValidTarget())
+            if (useQ && Spells.Q.IsReady())
             {
                 var pred = Spells.Q.GetPrediction(target);
                 if (pred.HitChance >= hitC)
