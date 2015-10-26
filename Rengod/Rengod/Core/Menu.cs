@@ -122,7 +122,8 @@ namespace Rengod.Core
             DrawingMenu.Add("drawW", new CheckBox("Draw W Range"));
             DrawingMenu.Add("drawE", new CheckBox("Draw E Range"));
             DrawingMenu.Add("drawR", new CheckBox("Draw R Range"));
-            DrawingMenu.Add("drawK", new CheckBox("Draw H on Killable Enemies"));
+            DrawingMenu.Add("drawK", new CheckBox("Draw K on Killable Enemies"));
+            DrawingMenu.Add("drawT", new CheckBox("Draw R Timer Left"));
             DrawingMenu.AddSeparator();
             DrawingMenu.Add("drawC", new CheckBox("Draw Current Combo Prioritize"));
             DrawingMenu.Add("posX", new Slider("X Position", 50, 0, 2000));

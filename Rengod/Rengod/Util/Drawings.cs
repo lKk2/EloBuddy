@@ -17,6 +17,7 @@ namespace Rengod.Util
             var drawR = Misc.isChecked(DrawingMenu, "drawR");
             var drawC = Misc.isChecked(DrawingMenu, "drawC");
             var drawK = Misc.isChecked(DrawingMenu, "drawK");
+            var drawT = Misc.isChecked(DrawingMenu, "drawT");
             var xPos = Misc.getSliderValue(DrawingMenu, "posX");
             var yPos = Misc.getSliderValue(DrawingMenu, "posY");
 
@@ -46,7 +47,7 @@ namespace Rengod.Util
                     }
                 }
             }
-            if (RengarR)
+            if (RengarR && drawT)
             {
                 foreach (var buff in _Player.Buffs)
                 {
