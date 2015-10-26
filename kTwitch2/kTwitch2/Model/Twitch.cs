@@ -29,7 +29,6 @@ namespace kTwitch2.Model
             Obj_AI_Base.OnProcessSpellCast += AiHeroClientOnOnProcessSpellCast;
             GameObject.OnCreate += GameObjectOnOnCreate;
             GameObject.OnDelete += GameObjectOnOnDelete;
-            Chat.Print("KK2 passou por aqui");
             Indicator = new DamageIndicator();
         }
 
