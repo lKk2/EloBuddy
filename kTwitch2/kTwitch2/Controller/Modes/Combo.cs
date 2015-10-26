@@ -23,6 +23,9 @@ namespace kTwitch2.Controller.Modes
         {
             var t = AdvancedTargetSelector.GetTarget(RActive ? R.Range : W.Range, DamageType.Physical);
             if (t == null || !t.IsValidTarget()) return;
+
+            Orbwalker.ForcedTarget = t;
+
             var useW = isChecked(ComboMenu, "comboW");
             var useE = isChecked(ComboMenu, "comboE");
             var useR = isChecked(ComboMenu, "comboR");
