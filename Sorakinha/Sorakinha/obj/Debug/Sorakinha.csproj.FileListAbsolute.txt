@@ -9,6 +9,3 @@ C:\Users\Kk2\documents\visual studio 2015\Projects\Sorakinha\Sorakinha\bin\Debug
 C:\Users\Kk2\documents\visual studio 2015\Projects\Sorakinha\Sorakinha\obj\Debug\Sorakinha.csprojResolveAssemblyReference.cache
 C:\Users\Kk2\documents\visual studio 2015\Projects\Sorakinha\Sorakinha\obj\Debug\Sorakinha.exe
 C:\Users\Kk2\documents\visual studio 2015\Projects\Sorakinha\Sorakinha\obj\Debug\Sorakinha.pdb
-C:\Users\Kk2\Documents\myGit\EloBuddy\Sorakinha\Sorakinha\bin\Debug\Sorakinha.exe.config
-C:\Users\Kk2\Documents\myGit\EloBuddy\Sorakinha\Sorakinha\obj\Debug\Sorakinha.exe
-C:\Users\Kk2\Documents\myGit\EloBuddy\Sorakinha\Sorakinha\obj\Debug\Sorakinha.pdb

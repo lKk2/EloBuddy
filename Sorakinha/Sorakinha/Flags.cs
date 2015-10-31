@@ -81,11 +81,11 @@ namespace Sorakinha
             var useE = Utils.isChecked(MenuX.Misc, "useEGapCloser");
             if (useQ && Spells.Q.IsReady())
             {
-                Spells.Q.Cast(sender);
+                Spells.Q.Cast(e.End);
             }
             if (useE && Spells.E.IsReady())
             {
-                Spells.E.Cast(sender);
+                Spells.E.Cast(e.End);
             }
         }
 
