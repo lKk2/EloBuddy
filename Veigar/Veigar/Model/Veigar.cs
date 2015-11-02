@@ -15,6 +15,7 @@ namespace Veigar.Model
 {
     class Veigar : Model
     {
+
         static Veigar()
         {
             if (Player.Instance.Hero != Champion.Veigar) return;
@@ -26,6 +27,7 @@ namespace Veigar.Model
             Drawing.OnDraw += OnDraw;
             Gapcloser.OnGapcloser += GapcloserOnOnGapcloser;
             DamageIndicator.Initialize(DamageLib.GetTotalDamage);
+            HasIgnite = Player.Instance.GetSpellSlotFromName("SummonerDot") != SpellSlot.Unknown;   
         }
 
         private static void GapcloserOnOnGapcloser(AIHeroClient sender, Gapcloser.GapcloserEventArgs gapcloserEventArgs)

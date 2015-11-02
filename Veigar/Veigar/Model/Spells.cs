@@ -17,7 +17,8 @@ namespace Veigar.Model
             W = new Spell.Skillshot(SpellSlot.W, 900, SkillShotType.Circular, 1350, int.MaxValue, 225);
             E = new Spell.Skillshot(SpellSlot.E, 500, SkillShotType.Circular, 500, int.MaxValue, 80) { AllowedCollisionCount = int.MaxValue };   
             R = new Spell.Targeted(SpellSlot.R, 650);
-            Ignite = ObjectManager.Player.GetSpellSlotFromName("summonerdot");
+            if (HasIgnite)
+                Ignite = ObjectManager.Player.GetSpellSlotFromName("summonerdot");
         }
         public static void Initialize() { }
     }

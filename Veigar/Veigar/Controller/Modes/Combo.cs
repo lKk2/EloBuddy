@@ -9,6 +9,7 @@ using EloBuddy.SDK;
 using EloBuddy.SDK.Enumerations;
 using Veigar.Helpers;
 using Veigar.Model;
+using Veigar = Veigar.Model.Veigar;
 
 namespace Veigar.Controller.Modes
 {
@@ -75,7 +76,7 @@ namespace Veigar.Controller.Modes
             }
 
             if (_Player.GetSummonerSpellDamage(t, DamageLibrary.SummonerSpells.Ignite) >= t.Health && MenuX.Modes.Combo.UseIg &&
-                        _Player.Distance(t) <= 0x258)
+                        _Player.Distance(t) <= 0x258 && HasIgnite)
             {
                 _Player.Spellbook.CastSpell(Ignite, t);
             }

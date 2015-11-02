@@ -29,5 +29,7 @@ namespace Veigar.Model
         Misc 
         */
         public static AIHeroClient _Player { get { return ObjectManager.Player; } }
+
+        public static bool HasIgnite { get; set; }
     }
 }
