@@ -15,7 +15,7 @@ namespace SwagZilean
         {
             Brain.AutoR(); // ult on combo orly?
             var target = TargetSelector.GetTarget(Spells.Q.Range, DamageType.Magical);
-            if (target == null || !target.IsValid) return;
+            if (target == null || !target.IsValidTarget()) return;
 
             var useQ = Utils.isChecked(MenuX.Combo, "comboQ");
             var useW = Utils.isChecked(MenuX.Combo, "comboW");
@@ -62,7 +62,7 @@ namespace SwagZilean
         {
             Brain.AutoR(); // ult on harass orly?
             var target = TargetSelector.GetTarget(Spells.Q.Range, DamageType.Magical);
-            if (target == null || !target.IsValid) return;
+            if (target == null || !target.IsValidTarget()) return;
 
             var useQ = Utils.isChecked(MenuX.Harass, "harassQ");
             var useW = Utils.isChecked(MenuX.Harass, "harrasW");
