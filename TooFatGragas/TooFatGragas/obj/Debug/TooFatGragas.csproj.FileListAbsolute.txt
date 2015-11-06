@@ -1,0 +1,13 @@
+c:\users\kk2\documents\visual studio 2015\Projects\TooFatGragas\TooFatGragas\bin\Debug\TooFatGragas.exe.config
+c:\users\kk2\documents\visual studio 2015\Projects\TooFatGragas\TooFatGragas\bin\Debug\TooFatGragas.exe
+c:\users\kk2\documents\visual studio 2015\Projects\TooFatGragas\TooFatGragas\bin\Debug\TooFatGragas.pdb
+c:\users\kk2\documents\visual studio 2015\Projects\TooFatGragas\TooFatGragas\bin\Debug\EloBuddy.dll
+c:\users\kk2\documents\visual studio 2015\Projects\TooFatGragas\TooFatGragas\bin\Debug\EloBuddy.SDK.dll
+c:\users\kk2\documents\visual studio 2015\Projects\TooFatGragas\TooFatGragas\bin\Debug\SharpDX.Direct3D9.dll
+c:\users\kk2\documents\visual studio 2015\Projects\TooFatGragas\TooFatGragas\bin\Debug\SharpDX.dll
+c:\users\kk2\documents\visual studio 2015\Projects\TooFatGragas\TooFatGragas\bin\Debug\Newtonsoft.Json.dll
+c:\users\kk2\documents\visual studio 2015\Projects\TooFatGragas\TooFatGragas\obj\Debug\TooFatGragas.csprojResolveAssemblyReference.cache
+c:\users\kk2\documents\visual studio 2015\Projects\TooFatGragas\TooFatGragas\obj\Debug\BRSelector.External.Menu.resources
+c:\users\kk2\documents\visual studio 2015\Projects\TooFatGragas\TooFatGragas\obj\Debug\TooFatGragas.csproj.GenerateResource.Cache
+c:\users\kk2\documents\visual studio 2015\Projects\TooFatGragas\TooFatGragas\obj\Debug\TooFatGragas.exe
+c:\users\kk2\documents\visual studio 2015\Projects\TooFatGragas\TooFatGragas\obj\Debug\TooFatGragas.pdb
