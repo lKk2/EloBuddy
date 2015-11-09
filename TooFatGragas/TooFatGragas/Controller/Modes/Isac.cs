@@ -1,5 +1,4 @@
-﻿using BRSelector.Model;
-using EloBuddy;
+﻿using EloBuddy;
 using EloBuddy.SDK;
 using EloBuddy.SDK.Enumerations;
 using TooFatGragas.Helpers;
@@ -16,7 +15,7 @@ namespace TooFatGragas.Controller.Modes
 
         public override void Execute()
         {
-            var target = AdvancedTargetSelector.GetTarget(R.Range, DamageType.Magical);
+            var target = TargetSelector.GetTarget(R.Range, DamageType.Magical);
             if (target == null) return;
 
             Orbwalker.OrbwalkTo(Game.CursorPos);

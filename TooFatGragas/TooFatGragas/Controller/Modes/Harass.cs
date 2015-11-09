@@ -1,5 +1,4 @@
-﻿using BRSelector.Model;
-using EloBuddy;
+﻿using EloBuddy;
 using EloBuddy.SDK;
 using EloBuddy.SDK.Enumerations;
 using TooFatGragas.Helpers;
@@ -16,11 +15,10 @@ namespace TooFatGragas.Controller.Modes
 
         public override void Execute()
         {
-            var target = AdvancedTargetSelector.GetTarget(Q.Range, DamageType.Magical);
+            var target = TargetSelector.GetTarget(Q.Range, DamageType.Magical);
 
-            if (target == null || !target.IsValidTarget()) return;
+            if (target == null || !target.IsValid) return;
 
-            Orbwalker.ForcedTarget = target;
 
             if (E.IsReady() && Config.Harass.UseE &&
                 _Player.ManaPercent >= Config.Harass.MinMana)

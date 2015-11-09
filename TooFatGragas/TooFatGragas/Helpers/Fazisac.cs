@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Drawing;
-using BRSelector.Model;
 using EloBuddy;
 using EloBuddy.SDK;
 using EloBuddy.SDK.Rendering;
@@ -37,7 +36,7 @@ namespace TooFatGragas.Helpers
             DamageIndicator.HealthbarEnabled = Config.Drawings.IndicatorHealthbar;
             DamageIndicator.PercentEnabled = Config.Drawings.IndicatorPercent;
             if (!Config.Insec.getDraw) return;
-            var target = AdvancedTargetSelector.GetTarget(R.Range, DamageType.Magical);
+            var target = TargetSelector.GetTarget(R.Range, DamageType.Magical);
             if (target == null) return;
             var tpos = Drawing.WorldToScreen(target.Position);
             if (R.IsReady() && R.IsInRange(target) && R.Level > 0)

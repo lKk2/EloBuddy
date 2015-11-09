@@ -64,22 +64,6 @@
     <Compile Include="Controller\Modes\JungleClear.cs" />
     <Compile Include="Controller\Modes\LaneClear.cs" />
     <Compile Include="Controller\Modes\PermaActive.cs" />
-    <Compile Include="Helpers\BRSelector\AdvancedTargetSelector.cs" />
-    <Compile Include="Helpers\BRSelector\AutoPriority.cs" />
-    <Compile Include="Helpers\BRSelector\EnumSelectorType.cs" />
-    <Compile Include="Helpers\BRSelector\Humanizer.cs" />
-    <Compile Include="Helpers\BRSelector\Invulnerable.cs" />
-    <Compile Include="Helpers\BRSelector\Menu.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Helpers\BRSelector\Menu.designer.cs">
-      <DependentUpon>Menu.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Helpers\BRSelector\Misc.cs" />
-    <Compile Include="Helpers\BRSelector\Points.cs" />
-    <Compile Include="Helpers\BRSelector\Selected.cs" />
-    <Compile Include="Helpers\BRSelector\Selector.cs" />
-    <Compile Include="Helpers\BRSelector\Targets.cs" />
     <Compile Include="Helpers\Config.cs" />
     <Compile Include="Helpers\DamageIndicator.cs" />
     <Compile Include="Helpers\Extensions.cs" />
@@ -93,11 +77,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Helpers\BRSelector\Menu.resx">
-      <DependentUpon>Menu.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
