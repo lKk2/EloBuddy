@@ -25,7 +25,7 @@ namespace TooFatGragas.Controller
                 new Isac(),
                 new PermaActive()
             });
-            Game.OnTick += GameOnOnTick;
+            Game.OnUpdate += GameOnOnTick;
         }
 
         private static HashSet<ModeBase> Modes { get; set; }
