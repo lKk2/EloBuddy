@@ -1,4 +1,5 @@
-﻿using EloBuddy;
+﻿using System.CodeDom;
+using EloBuddy;
 using EloBuddy.SDK.Menu;
 using EloBuddy.SDK.Menu.Values;
 
@@ -181,7 +182,7 @@ namespace SimpleSivir.Helpers
                 _useE = Menu.Add("useEOP", new CheckBox("Auto use E (PLX YES)"));
                 _autoQ = Menu.Add("autoQop", new CheckBox("Auto Use Q on Immobile/Dashing Targets"));
                 Menu.AddSeparator();
-                _skinHax = Menu.Add("skinhax", new Slider("Choose your Skin [number]", 0, 0, 7));
+                _skinHax = Menu.Add("skinhax", new Slider("Choose your Skin [number]", 0, 0, 8));
                 _skinHax.OnValueChange += delegate { ObjectManager.Player.SetSkinId(_skinHax.CurrentValue); };
                 ObjectManager.Player.SetSkinId(_skinHax.CurrentValue);
             }
@@ -213,12 +214,14 @@ namespace SimpleSivir.Helpers
             private static readonly CheckBox _drawRTimer;
             private static readonly CheckBox _healthbar;
             private static readonly CheckBox _percent;
+            private static readonly CheckBox _minionmark;
 
             static Drawings()
             {
                 Menu = Config.Menu.AddSubMenu("Drawings");
                 _drawQ = Menu.Add("drawQ", new CheckBox("Draw Q Range"));
                 _drawRTimer = Menu.Add("drawRTimer", new CheckBox("Draw R Timer"));
+                _minionmark = Menu.Add("minionMark", new CheckBox("Draw LastHit Mark on Minions"));
                 Menu.AddGroupLabel("Damage indicators");
                 _healthbar = Menu.Add("healthbar", new CheckBox("Healthbar overlay"));
                 _percent = Menu.Add("percent", new CheckBox("Damage percent info"));
@@ -244,6 +247,10 @@ namespace SimpleSivir.Helpers
                 get { return _percent.CurrentValue; }
             }
 
+            public static bool MinionMark
+            {
+                get { return _minionmark.CurrentValue; }
+            }
             public static void Initialize()
             {
             }

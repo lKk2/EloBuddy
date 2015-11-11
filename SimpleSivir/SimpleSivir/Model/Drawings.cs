@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Drawing;
+using System.Linq;
 using EloBuddy;
+using EloBuddy.SDK;
 using SimpleSivir.Helpers;
 
 namespace SimpleSivir.Model
@@ -33,7 +35,24 @@ namespace SimpleSivir.Model
                         }
                     }
                 }
+                if (Config.Drawings.MinionMark)
+                {
+                    foreach (
+                        var m in
+                            ObjectManager.Get<Obj_AI_Minion>()
+                                .Where(
+                                    x => x.CountEnemiesInRange(2500) >= _Player.CountEnemiesInRange(2500) && x.IsEnemy))
+                    {
+                        if (!m.IsValidTarget(2500))
+                            continue;
+                        if (m.Health <= _Player.GetAutoAttackDamage(m, true))
+                        {
+                            Drawing.DrawCircle(m.Position, m.BoundingRadius, Color.White);
+                        }
+                    }
+                }
             }
+
             catch (Exception ex)
             {
                 Console.WriteLine("Error: " + ex);

@@ -21,10 +21,15 @@ namespace SimpleSivir.Controller.Modes
                 _Player.ManaPercent >= Config.Harass.MinMana)
             {
                 var pred = Q.GetPrediction(target);
-                if (pred.HitChance >= HitChance.High)
+                switch (pred.HitChance)
                 {
-                    Q.Cast(pred.CastPosition);
+                    case HitChance.High:
+                    case HitChance.Immobile:
+                    case HitChance.Collision:
+                        Q.Cast(pred.CastPosition);
+                        break;
                 }
+                Q.Cast(pred.CastPosition);
             }
             if (W.IsReady()
                 && _Player.CountEnemiesInRange(_Player.GetAutoAttackRange()) > 0 && Config.Harass.UseW &&

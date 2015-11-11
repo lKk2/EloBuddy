@@ -20,7 +20,14 @@ namespace SimpleSivir.Controller.Modes
             if (Q.IsReady() && Config.Combo.UseQ)
             {
                 var pred = Q.GetPrediction(target);
-                if (pred.HitChance >= HitChance.High)
+                switch (pred.HitChance)
+                {
+                    case HitChance.High:
+                    case HitChance.Immobile:
+                    case HitChance.Collision:
+                        Q.Cast(pred.CastPosition);
+                        break;
+                }
                     Q.Cast(pred.CastPosition);
             }
             if (W.IsReady() &&
