@@ -36,7 +36,6 @@ namespace SimpleSivir.Controller
 
         private static void GameOnUpdate(EventArgs args)
         {
-            Orbwalker.ForcedTarget = null;
             Modes.ForEach(mode =>
             {
                 try
