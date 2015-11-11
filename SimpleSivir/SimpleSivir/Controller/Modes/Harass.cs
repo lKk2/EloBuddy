@@ -29,7 +29,6 @@ namespace SimpleSivir.Controller.Modes
                         Q.Cast(pred.CastPosition);
                         break;
                 }
-                Q.Cast(pred.CastPosition);
             }
             if (W.IsReady()
                 && _Player.CountEnemiesInRange(_Player.GetAutoAttackRange()) > 0 && Config.Harass.UseW &&
