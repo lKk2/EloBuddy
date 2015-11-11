@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7EF7C4FC-7BB1-4478-A999-CB9ABD58FB7E}</ProjectGuid>
+    <ProjectGuid>{EEAC6502-B2B6-419C-BA3F-F907B55CA258}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SimpleSivir</RootNamespace>
@@ -34,19 +34,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EloBuddy">
-      <HintPath>..\..\..\Desktop\EloBuddy\System\EloBuddy.dll</HintPath>
-    </Reference>
-    <Reference Include="EloBuddy.Sandbox">
-      <HintPath>..\..\..\Desktop\EloBuddy\System\EloBuddy.Sandbox.dll</HintPath>
+      <HintPath>..\..\..\..\..\Desktop\EloBuddy\System\EloBuddy.dll</HintPath>
     </Reference>
     <Reference Include="EloBuddy.SDK">
-      <HintPath>..\..\..\Desktop\EloBuddy\System\EloBuddy.SDK.dll</HintPath>
+      <HintPath>..\..\..\..\..\Desktop\EloBuddy\System\EloBuddy.SDK.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX">
-      <HintPath>..\..\..\Desktop\EloBuddy\System\SharpDX.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpDX.Direct3D9">
-      <HintPath>..\..\..\Desktop\EloBuddy\System\SharpDX.Direct3D9.dll</HintPath>
+      <HintPath>..\..\..\..\..\Desktop\EloBuddy\System\SharpDX.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -59,8 +53,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Brain.cs" />
-    <Compile Include="Menu.cs" />
+    <Compile Include="Controller\ModeManager.cs" />
+    <Compile Include="Controller\Modes\Combo.cs" />
+    <Compile Include="Controller\Modes\Harass.cs" />
+    <Compile Include="Controller\Modes\JungleClear.cs" />
+    <Compile Include="Controller\Modes\LaneClear.cs" />
+    <Compile Include="Controller\Modes\PermaActive.cs" />
+    <Compile Include="Controller\ProcessSpells.cs" />
+    <Compile Include="Helpers\Config.cs" />
+    <Compile Include="Helpers\DamageIndicator.cs" />
+    <Compile Include="Helpers\Extensions.cs" />
+    <Compile Include="Model\Drawings.cs" />
+    <Compile Include="Model\ModeBase.cs" />
+    <Compile Include="Model\Model.cs" />
+    <Compile Include="Model\Sivir.cs" />
+    <Compile Include="Model\Spells.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
