@@ -105,6 +105,7 @@ namespace SimpleSivir.Helpers
             private static readonly CheckBox _useQ;
             private static readonly CheckBox _useW;
             private static readonly Slider _minMana;
+            private static readonly Slider _minMinion;
 
             static LaneClear()
             {
@@ -112,8 +113,13 @@ namespace SimpleSivir.Helpers
                 _useQ = Menu.Add("useQLane", new CheckBox("Use Q"));
                 _useW = Menu.Add("useWLane", new CheckBox("Use W"));
                 _minMana = Menu.Add("minManaLane", new Slider("Mana %>", 40));
+                _minMinion = Menu.Add("minMinionsL", new Slider("Min Minions to Cast", 3, 1, 5));
             }
 
+            public static int MinMinions
+            {
+                get { return _minMana.CurrentValue; }
+            }
             public static bool UseQ
             {
                 get { return _useQ.CurrentValue; }
@@ -147,6 +153,7 @@ namespace SimpleSivir.Helpers
                 _useQ = Menu.Add("useQJungle", new CheckBox("Use Q"));
                 _useW = Menu.Add("useWJungle", new CheckBox("Use W"));
                 _minMana = Menu.Add("minManaJungle", new Slider("Mana %>", 40));
+               
             }
 
             public static bool UseQ
