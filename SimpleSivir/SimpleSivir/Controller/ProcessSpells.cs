@@ -155,6 +155,8 @@ namespace SimpleSivir.Controller
                 "ZyraQFissure"
                 ,
                 "ZyraGraspingRoots"
+                ,
+                "goldcardlock"
             };
         }
 

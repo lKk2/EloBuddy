@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Linq;
 using EloBuddy;
 using EloBuddy.SDK;
+using EloBuddy.SDK.Rendering;
 using SimpleSivir.Helpers;
 
 namespace SimpleSivir.Model
@@ -21,7 +22,7 @@ namespace SimpleSivir.Model
                 DamageIndicator.HealthbarEnabled = Config.Drawings.IndicatorHealthbar;
                 DamageIndicator.PercentEnabled = Config.Drawings.IndicatorPercent;
                 if (Config.Drawings.DrawQ)
-                    Drawing.DrawCircle(_Player.Position, Q.Range, Q.IsReady() ? Color.Aqua : Color.Red);
+                    new Circle { Color = Color.White, Radius = Spells.Q.Range, BorderWidth = 2f }.Draw(_Player.Position);
                 if (Config.Drawings.DrawR)
                 {
                     foreach (var buff in _Player.Buffs)

@@ -13,6 +13,7 @@ namespace SimpleSivir.Model
             ModeManager.Initialize();
             ProcessSpells.Initialize();
             Config.Initialize();
+            Drawings.Initiliaze();
             DamageIndicator.Initialize(Spells.GetTotalDmg);
         }
 

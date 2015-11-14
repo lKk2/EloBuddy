@@ -118,7 +118,7 @@ namespace SimpleSivir.Helpers
 
             public static int MinMinions
             {
-                get { return _minMana.CurrentValue; }
+                get { return _minMinion.CurrentValue; }
             }
             public static bool UseQ
             {
