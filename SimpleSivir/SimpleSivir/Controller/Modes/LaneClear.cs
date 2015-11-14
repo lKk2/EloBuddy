@@ -19,15 +19,15 @@ namespace SimpleSivir.Controller.Modes
             if (!minions.Any()) return;
             var qMinions = EntityManager.MinionsAndMonsters.GetLineFarmLocation(minions, Q.Width, (int) Q.Range);
             if (Q.IsReady() &&
-                qMinions.HitNumber >= 2 &&
+                qMinions.HitNumber >= 3 &&
                 Config.LaneClear.UseQ &&
-                Config.LaneClear.MinMana <= _Player.ManaPercent)
+                Config.LaneClear.MinMana < _Player.ManaPercent)
             {
                 Q.Cast(qMinions.CastPosition);
             }
-            if (W.IsReady() && minions.Count >= 2 &&
+            if (W.IsReady() && minions.Count >= 3 &&
                 Config.LaneClear.UseW &&
-                Config.LaneClear.MinMana <= _Player.ManaPercent)
+                Config.LaneClear.MinMana < _Player.ManaPercent)
             {
                 W.Cast();
             }

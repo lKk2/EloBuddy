@@ -19,13 +19,13 @@ namespace SimpleSivir.Controller.Modes
             var qFarm = EntityManager.MinionsAndMonsters.GetLineFarmLocation(minions, Q.Width, (int) Q.Range);
             if (qFarm.HitNumber > 0 && Q.IsReady() &&
                 Config.JungleClear.UseQ &&
-                Config.JungleClear.MinMana <= _Player.ManaPercent)
+                Config.JungleClear.MinMana < _Player.ManaPercent)
             {
                 Q.Cast(qFarm.CastPosition);
             }
             if (W.IsReady() && minions.Count >= 2 &&
                 Config.JungleClear.UseW &&
-                Config.JungleClear.MinMana <= _Player.ManaPercent)
+                Config.JungleClear.MinMana < _Player.ManaPercent)
             {
                 W.Cast();
             }
