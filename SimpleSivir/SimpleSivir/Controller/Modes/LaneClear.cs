@@ -15,12 +15,12 @@ namespace SimpleSivir.Controller.Modes
         public override void Execute()
         {
             var qMinions = EntityManager.MinionsAndMonsters.GetLineFarmLocation(EntityManager.MinionsAndMonsters.GetLaneMinions(EntityManager.UnitTeam.Enemy, _Player.Position, Q.Range, true), Q.Width, (int) Q.Range);
-            if (Q.IsReady() && qMinions.HitNumber >= 3 &&
+            if (Q.IsReady() && qMinions.HitNumber >= Config.LaneClear.MinMinions &&
                 _Player.ManaPercent >= Config.LaneClear.MinMana && Config.LaneClear.UseQ)
             {
                 Q.Cast(qMinions.CastPosition);
             }
-            if (W.IsReady() && EntityManager.MinionsAndMonsters.GetLaneMinions().Count(a => a.Distance(_Player.Position) <= _Player.GetAutoAttackRange()) >= 3 &&
+            if (W.IsReady() && EntityManager.MinionsAndMonsters.GetLaneMinions().Count(a => a.Distance(_Player.Position) <= _Player.GetAutoAttackRange()) >= Config.LaneClear.MinMinions &&
                 Config.LaneClear.UseW &&
                 Config.LaneClear.MinMana < _Player.ManaPercent)
             {
