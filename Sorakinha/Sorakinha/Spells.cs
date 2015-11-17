@@ -4,7 +4,7 @@ using EloBuddy.SDK.Enumerations;
 
 namespace Sorakinha
 {
-    internal class Spells
+    internal static class Spells
     {
         /**
        Declaring the Spells

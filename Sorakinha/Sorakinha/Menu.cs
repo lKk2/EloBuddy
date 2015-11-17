@@ -5,10 +5,11 @@ using EloBuddy.SDK.Menu.Values;
 
 namespace Sorakinha
 {
-    internal class MenuX
+    internal static class MenuX
     {
-        public static Menu Soraka, Combo, Harass, Healing, Drawing, Misc;
-        public static string[] PredictionSliderValues = {"Low", "Medium", "High"};
+        private static Menu Soraka;
+        public static Menu Combo, Harass, Healing, Drawing, Misc;
+        private static string[] PredictionSliderValues = {"Low", "Medium", "High"};
         public static Slider SkinSelect;
         /*
         Create the Menu ^.^

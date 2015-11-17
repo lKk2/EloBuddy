@@ -9,14 +9,14 @@ using EloBuddy.SDK.Menu.Values;
 
 namespace Sorakinha
 {
-    internal class Brain
+    internal static class Brain
     {
         private const int XOffset = 10;
         private const int YOffset = 20;
         private const int Width = 103;
         private const int Height = 8;
 
-        public static AIHeroClient _Player
+        private static AIHeroClient _Player
         {
             get { return ObjectManager.Player; }
         }
@@ -40,7 +40,7 @@ namespace Sorakinha
                 };
         }
 
-        public static void Game_OnTick(EventArgs args)
+        private static void Game_OnTick(EventArgs args)
         {
             var autoW = Utils.isChecked(MenuX.Healing, "useW");
             if (autoW && Spells.W.IsReady())
@@ -59,6 +59,18 @@ namespace Sorakinha
                 case Orbwalker.ActiveModes.Harass:
                     Flags.Harass();
                     return;
+                case Orbwalker.ActiveModes.None:
+                    break;
+                case Orbwalker.ActiveModes.LastHit:
+                    break;
+                case Orbwalker.ActiveModes.JungleClear:
+                    break;
+                case Orbwalker.ActiveModes.LaneClear:
+                    break;
+                case Orbwalker.ActiveModes.Flee:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
 
@@ -68,15 +80,10 @@ namespace Sorakinha
             if (hBar)
             {
                 //Brain.DrawWbar();
-                foreach (var hero in EntityManager.Heroes.Allies)
+                foreach (var pos in from hero in EntityManager.Heroes.Allies let pos = hero.HPBarPosition where !hero.IsDead && !hero.IsMe && hero.HealthPercent <= Utils.getSliderValue(MenuX.Healing, "wpct" + hero.ChampionName) select pos)
                 {
-                    var pos = hero.HPBarPosition;
-                    if (!hero.IsDead && !hero.IsMe &&
-                        hero.HealthPercent <= Utils.getSliderValue(MenuX.Healing, "wpct" + hero.ChampionName))
-                    {
-                        // Brain.DrawWbar();
-                        Drawing.DrawText(pos.X + 110, pos.Y - 5, Color.Tomato, "H");
-                    }
+                    // Brain.DrawWbar();
+                    Drawing.DrawText(pos.X + 110, pos.Y - 5, Color.Tomato, "H");
                 }
             }
             var QRange = Utils.isChecked(MenuX.Drawing, "drawQ");
@@ -97,17 +104,7 @@ namespace Sorakinha
         {
             var useR = Utils.isChecked(MenuX.Healing, "useR");
             if (!Spells.R.IsReady() && useR) return;
-            if (
-                ObjectManager.Get<AIHeroClient>()
-                    .Where(x => x.IsAlly && x.IsValidTarget(float.MaxValue))
-                    .Select(x => (int) x.Health/x.MaxHealth*100)
-                    .Select(
-                        friendHealth =>
-                            new {friendHealth, health = Utils.getSliderValue(MenuX.Healing, "useRslider")})
-                    .Where(x => x.friendHealth <= x.health)
-                    .Select(x => x.friendHealth)
-                    .Any()
-                )
+            if (ObjectManager.Get<AIHeroClient>().Where(x => x.IsAlly && x.IsValidTarget(float.MaxValue)).Select(x => (int) x.Health/x.MaxHealth*100).Select(friendHealth => new {friendHealth, health = Utils.getSliderValue(MenuX.Healing, "useRslider")}).Where(x => x.friendHealth <= x.health).Select(x => x.friendHealth).Any())
             {
                 Spells.R.Cast();
             }
@@ -119,13 +116,7 @@ namespace Sorakinha
 
         public static void AutoW()
         {
-            var test = EntityManager.Heroes.Allies.Where(
-                hero => !hero.IsMe && !hero.IsDead && !hero.IsInShopRange()
-                        && !hero.IsZombie &&
-                        hero.Distance(_Player) <= Spells.W.Range &&
-                        MenuX.Healing["w" + hero.ChampionName].Cast<CheckBox>().CurrentValue &&
-                        hero.HealthPercent <= MenuX.Healing["wpct" + hero.ChampionName].Cast<Slider>().CurrentValue
-                ).ToList();
+            var test = EntityManager.Heroes.Allies.Where(hero => !hero.IsMe && !hero.IsDead && !hero.IsInShopRange() && !hero.IsZombie && hero.Distance(_Player) <= Spells.W.Range && MenuX.Healing["w" + hero.ChampionName].Cast<CheckBox>().CurrentValue && hero.HealthPercent <= MenuX.Healing["wpct" + hero.ChampionName].Cast<Slider>().CurrentValue).ToList();
             var allytoheal = test.OrderBy(x => x.Health).FirstOrDefault(x => !x.IsInShopRange());
             if (allytoheal != null)
             {
@@ -156,16 +147,14 @@ namespace Sorakinha
 
         #region Healing Bar Calcs
 
-        public static float WHeal(Obj_AI_Base target)
+        private static float WHeal(Obj_AI_Base target)
         {
-            return _Player.CalculateDamageOnUnit(target, DamageType.Magical,
-                (float) (new[] {120, 150, 180, 210, 240}[Spells.W.Level] + 0.6*_Player.FlatMagicDamageMod));
+            return _Player.CalculateDamageOnUnit(target, DamageType.Magical, (float) (new[] {120, 150, 180, 210, 240}[Spells.W.Level] + 0.6*_Player.FlatMagicDamageMod));
         }
 
         public static void DrawWbar()
         {
-            foreach (
-                var unit in ObjectManager.Get<AIHeroClient>().Where(h => h.IsValid && h.IsHPBarRendered && h.IsAlly))
+            foreach (var unit in ObjectManager.Get<AIHeroClient>().Where(h => h.IsValid && h.IsHPBarRendered && h.IsAlly))
             {
                 var barPos = unit.HPBarPosition;
                 var healing = WHeal(unit);

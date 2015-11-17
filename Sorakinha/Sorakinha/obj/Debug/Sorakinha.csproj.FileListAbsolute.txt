@@ -9,3 +9,17 @@ C:\Users\Kk2\documents\visual studio 2015\Projects\Sorakinha\Sorakinha\bin\Debug
 C:\Users\Kk2\documents\visual studio 2015\Projects\Sorakinha\Sorakinha\obj\Debug\Sorakinha.csprojResolveAssemblyReference.cache
 C:\Users\Kk2\documents\visual studio 2015\Projects\Sorakinha\Sorakinha\obj\Debug\Sorakinha.exe
 C:\Users\Kk2\documents\visual studio 2015\Projects\Sorakinha\Sorakinha\obj\Debug\Sorakinha.pdb
+C:\Users\iljak\Downloads\KK2\EloBuddy-master\Sorakinha\Sorakinha\bin\Debug\Sorakinha.exe.config
+C:\Users\iljak\Downloads\KK2\EloBuddy-master\Sorakinha\Sorakinha\obj\Debug\Sorakinha.exe
+C:\Users\iljak\Downloads\KK2\EloBuddy-master\Sorakinha\Sorakinha\obj\Debug\Sorakinha.pdb
+C:\Users\Kk2\Desktop\Tree of Savior Experience Viewer\EloBuddy-master\Sorakinha\Sorakinha\bin\Debug\Sorakinha.exe.config
+C:\Users\Kk2\Desktop\Tree of Savior Experience Viewer\EloBuddy-master\Sorakinha\Sorakinha\obj\Debug\Sorakinha.exe
+C:\Users\Kk2\Desktop\Tree of Savior Experience Viewer\EloBuddy-master\Sorakinha\Sorakinha\obj\Debug\Sorakinha.pdb
+C:\Users\Kk2\Desktop\Tree of Savior Experience Viewer\EloBuddy-master\Sorakinha\Sorakinha\bin\Debug\Sorakinha.exe
+C:\Users\Kk2\Desktop\Tree of Savior Experience Viewer\EloBuddy-master\Sorakinha\Sorakinha\bin\Debug\Sorakinha.pdb
+C:\Users\Kk2\Desktop\Tree of Savior Experience Viewer\EloBuddy-master\Sorakinha\Sorakinha\bin\Debug\EloBuddy.dll
+C:\Users\Kk2\Desktop\Tree of Savior Experience Viewer\EloBuddy-master\Sorakinha\Sorakinha\bin\Debug\EloBuddy.SDK.dll
+C:\Users\Kk2\Desktop\Tree of Savior Experience Viewer\EloBuddy-master\Sorakinha\Sorakinha\bin\Debug\SharpDX.dll
+C:\Users\Kk2\Desktop\Tree of Savior Experience Viewer\EloBuddy-master\Sorakinha\Sorakinha\bin\Debug\SharpDX.Direct3D9.dll
+C:\Users\Kk2\Desktop\Tree of Savior Experience Viewer\EloBuddy-master\Sorakinha\Sorakinha\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Kk2\Desktop\Tree of Savior Experience Viewer\EloBuddy-master\Sorakinha\Sorakinha\obj\Debug\Sorakinha.csprojResolveAssemblyReference.cache

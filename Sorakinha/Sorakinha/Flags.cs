@@ -7,7 +7,7 @@ using EloBuddy.SDK.Menu.Values;
 
 namespace Sorakinha
 {
-    internal class Flags
+    internal static class Flags
     {
         #region Combo
 
@@ -79,11 +79,11 @@ namespace Sorakinha
         {
             var useQ = Utils.isChecked(MenuX.Misc, "useQGapCloser");
             var useE = Utils.isChecked(MenuX.Misc, "useEGapCloser");
-            if (useQ && Spells.Q.IsReady())
+            if (useQ && Spells.Q.IsReady() && sender.IsEnemy && !sender.IsZombie)
             {
                 Spells.Q.Cast(e.End);
             }
-            if (useE && Spells.E.IsReady())
+            if (useE && Spells.E.IsReady() && sender.IsEnemy && !sender.IsZombie)
             {
                 Spells.E.Cast(e.End);
             }

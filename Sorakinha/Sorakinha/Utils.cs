@@ -4,7 +4,7 @@ using EloBuddy.SDK.Menu.Values;
 
 namespace Sorakinha
 {
-    internal class Utils
+    internal static class Utils
     {
         public static AIHeroClient _Player
         {
