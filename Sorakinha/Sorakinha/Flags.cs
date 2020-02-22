@@ -98,6 +98,7 @@ namespace Sorakinha
             if (!useE || spell.DangerLevel != DangerLevel.High) return;
             if (!unit.IsValidTarget(Spells.E.Range)) return;
             if (!Spells.E.IsReady()) return;
+            if (unit.IsAlly) return;
             Spells.E.Cast(unit);
         }
 
